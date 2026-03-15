@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@import "maplibre-gl/dist/maplibre-gl.css";
+@import "leaflet/dist/leaflet.css";
 
 :root {
   --background: #020817;
@@ -45,8 +47,8 @@ body {
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Mapbox overrides */
-.mapboxgl-popup-content {
+/* MapLibre GL overrides */
+.maplibregl-popup-content {
   background: rgba(2, 8, 23, 0.95) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
@@ -55,32 +57,68 @@ body {
   backdrop-filter: blur(20px);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
 }
-.mapboxgl-popup-tip {
+.maplibregl-popup-tip {
   border-top-color: rgba(255, 255, 255, 0.1) !important;
   border-bottom-color: rgba(255, 255, 255, 0.1) !important;
 }
-.mapboxgl-ctrl-group {
+.maplibregl-ctrl-group {
   background: rgba(2, 8, 23, 0.8) !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   border-radius: 12px !important;
   backdrop-filter: blur(20px);
 }
-.mapboxgl-ctrl-group button {
+.maplibregl-ctrl-group button {
   color: white !important;
 }
-.mapboxgl-ctrl-group button:hover {
+.maplibregl-ctrl-group button:hover {
   background: rgba(255, 255, 255, 0.1) !important;
 }
-.mapboxgl-ctrl-attrib {
+.maplibregl-ctrl-attrib {
   background: rgba(2, 8, 23, 0.7) !important;
   color: rgba(255, 255, 255, 0.4) !important;
   border-radius: 8px !important;
 }
-.mapboxgl-ctrl-attrib a {
+.maplibregl-ctrl-attrib a {
   color: rgba(14, 165, 233, 0.7) !important;
 }
-.mapboxgl-canvas {
+.maplibregl-canvas {
   border-radius: inherit;
+}
+
+/* Leaflet overrides */
+.leaflet-popup-content-wrapper {
+  background: rgba(2, 8, 23, 0.95) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  color: white !important;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+}
+.leaflet-popup-tip {
+  background: rgba(2, 8, 23, 0.95) !important;
+}
+.leaflet-control-zoom {
+  background: rgba(2, 8, 23, 0.8) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.leaflet-control-zoom a {
+  background: transparent !important;
+  color: white !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+.leaflet-control-attribution {
+  background: rgba(2, 8, 23, 0.7) !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  border-radius: 8px !important;
+}
+.leaflet-control-attribution a {
+  color: rgba(14, 165, 233, 0.7) !important;
 }
 
 /* Glass morphism */
