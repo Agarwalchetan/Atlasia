@@ -29,7 +29,7 @@ export default function MapPage() {
                 <h1 className="text-2xl font-bold text-white">Interactive World Map</h1>
               </div>
               <p className="text-white/50 text-sm ml-12">
-                Click anywhere on the globe to explore travel guides for any location
+                Click anywhere on the map to explore travel guides for any location
               </p>
             </div>
             <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm">
