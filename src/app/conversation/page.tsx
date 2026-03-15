@@ -13,10 +13,10 @@ import {
   Sparkles,
   Radio,
 } from "lucide-react";
+import { Icon as IconifyIcon } from "@iconify/react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Select } from "@/components/ui/select";
 import { SUPPORTED_LANGUAGES } from "@/lib/utils";
 import { useTranslations } from "@/lib/use-translations";
 import type { ConversationMessage } from "@/types";
@@ -207,7 +207,8 @@ export default function ConversationPage() {
 
   const langOptions = SUPPORTED_LANGUAGES.map((l) => ({
     value: l.code,
-    label: `${l.flag} ${l.name}`,
+    label: l.name,
+    flag: l.flag,
   }));
 
   return (
@@ -241,7 +242,7 @@ export default function ConversationPage() {
               <div className="flex items-center gap-3">
                 <div className="flex-1">
                   <label className="text-xs text-stone-400 mb-1.5 block">{t.personASpeaks}</label>
-                  <Select value={langA} onValueChange={setLangA} options={langOptions} />
+                  <LangSelect value={langA} onChange={setLangA} options={langOptions} />
                 </div>
                 <button
                   onClick={swapLanguages}
@@ -251,7 +252,7 @@ export default function ConversationPage() {
                 </button>
                 <div className="flex-1">
                   <label className="text-xs text-stone-400 mb-1.5 block">{t.personBSpeaks}</label>
-                  <Select value={langB} onValueChange={setLangB} options={langOptions} />
+                  <LangSelect value={langB} onChange={setLangB} options={langOptions} />
                 </div>
               </div>
             </Card>
@@ -365,8 +366,9 @@ export default function ConversationPage() {
                         } rounded-2xl p-4`}
                       >
                         <div className="flex items-center justify-between gap-4 mb-2">
-                            <span className="text-xs text-stone-500">
-                              {getLangFlag(msg.originalLang)} {t.originalLabel}
+                            <span className="flex items-center gap-1 text-xs text-stone-500">
+                              <IconifyIcon icon={getLangFlag(msg.originalLang)} width={14} />
+                              {t.originalLabel}
                             </span>
                           <span className="text-xs text-stone-600">
                             {new Date(msg.timestamp).toLocaleTimeString([], {
@@ -379,8 +381,9 @@ export default function ConversationPage() {
 
                         <div className="border-t border-stone-800/60 pt-3">
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs text-stone-500">
-                              {getLangFlag(msg.targetLang)} {t.translationLabel}
+                            <span className="flex items-center gap-1 text-xs text-stone-500">
+                              <IconifyIcon icon={getLangFlag(msg.targetLang)} width={14} />
+                              {t.translationLabel}
                             </span>
                             <button
                               onClick={() => playAudio(msg.translatedText, msg.id)}
@@ -403,6 +406,39 @@ export default function ConversationPage() {
             )}
           </div>
         </div>
+      </div>
+    </div>
+  );
+}
+
+interface LangSelectProps {
+  value: string;
+  onChange: (value: string) => void;
+  options: { value: string; label: string; flag: string }[];
+}
+
+function LangSelect({ value, onChange, options }: LangSelectProps) {
+  const selected = options.find((o) => o.value === value);
+  return (
+    <div className="relative">
+      <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center">
+        {selected && <IconifyIcon icon={selected.flag} width={18} />}
+      </div>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full appearance-none bg-stone-900/60 border border-stone-800 rounded-xl pl-9 pr-8 py-2.5 text-sm text-stone-50 outline-none focus:border-amber-500/50 transition-colors cursor-pointer"
+      >
+        {options.map((opt) => (
+          <option key={opt.value} value={opt.value}>
+            {opt.label}
+          </option>
+        ))}
+      </select>
+      <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center">
+        <svg className="w-4 h-4 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
       </div>
     </div>
   );
@@ -447,9 +483,9 @@ function RecorderPanel({
     <Card className="flex flex-col gap-4">
       <div className="flex items-center gap-3">
         <div
-          className={`w-9 h-9 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center text-white font-bold`}
+          className={`w-9 h-9 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center`}
         >
-          {flag}
+          <IconifyIcon icon={flag} width={20} />
         </div>
         <div>
           <div className="font-semibold font-[family-name:var(--font-sora)] text-stone-50 text-sm">{label}</div>
