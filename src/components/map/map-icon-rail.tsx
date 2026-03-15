@@ -1,23 +1,28 @@
 "use client";
 
 import Link from "next/link";
-import { Globe, Bookmark, Clock, Smartphone, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import {
+  Globe,
+  Map,
+  BookOpen,
+  Languages,
+  Mic,
+  AlertTriangle,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface RailItem {
-  icon: React.ElementType;
-  label: string;
-  href?: string;
-  onClick?: () => void;
-}
-
-const RAIL_ITEMS: RailItem[] = [
-  { icon: Bookmark, label: "Saved" },
-  { icon: Clock, label: "Recents" },
-  { icon: Smartphone, label: "Get app" },
+const NAV_ITEMS = [
+  { href: "/map", label: "Map", icon: Map },
+  { href: "/travel-guide", label: "Guide", icon: BookOpen },
+  { href: "/phrases", label: "Phrases", icon: Languages },
+  { href: "/conversation", label: "Chat", icon: Mic },
+  { href: "/emergency", label: "SOS", icon: AlertTriangle },
 ];
 
 export function MapIconRail() {
+  const pathname = usePathname();
+
   return (
     <div className="fixed left-0 top-0 h-full w-[56px] bg-stone-950/95 backdrop-blur-xl border-r border-stone-800/40 z-40 flex flex-col items-center pt-3 gap-1 max-md:hidden">
       {/* Logo / Home */}
@@ -30,30 +35,28 @@ export function MapIconRail() {
         </div>
       </Link>
 
-      {/* Menu */}
-      <button className="flex flex-col items-center gap-1 py-3 px-1 rounded-xl hover:bg-stone-800/50 transition-colors duration-150 cursor-pointer w-full">
-        <Menu size={18} className="text-stone-400" />
-        <span className="text-[10px] text-stone-500 font-medium">Menu</span>
-      </button>
-
       <div className="w-7 h-px bg-stone-800/60 my-1" />
 
-      {/* Rail items */}
-      {RAIL_ITEMS.map((item) => {
+      {/* Nav items — same routes as main navbar */}
+      {NAV_ITEMS.map((item) => {
         const Icon = item.icon;
+        const isActive = pathname === item.href;
         return (
-          <button
-            key={item.label}
-            onClick={item.onClick}
+          <Link
+            key={item.href}
+            href={item.href}
             className={cn(
-              "flex flex-col items-center gap-1 py-3 px-1 rounded-xl hover:bg-stone-800/50 transition-colors duration-150 cursor-pointer w-full"
+              "flex flex-col items-center gap-1 py-4 px-2 w-full cursor-pointer rounded-lg mx-1 transition-colors duration-150",
+              isActive
+                ? "text-amber-400"
+                : "text-stone-400 hover:bg-stone-800/50 hover:text-stone-100"
             )}
           >
-            <Icon size={18} className="text-stone-400" />
-            <span className="text-[10px] text-stone-500 font-medium">
+            <Icon size={20} />
+            <span className="text-[10px] font-medium">
               {item.label}
             </span>
-          </button>
+          </Link>
         );
       })}
     </div>

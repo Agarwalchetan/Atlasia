@@ -134,7 +134,7 @@ export function MapLibreCanvas({ onLocationSelect, flyTo, markerPos }: MapCanvas
 
   return (
     <div className="relative w-full h-full">
-      <div ref={containerRef} className="absolute inset-0" />
+      <div ref={containerRef} className="absolute inset-0" style={{ width: '100%', height: '100%' }} />
       {!loaded && <MapLoading label="Loading globe..." />}
     </div>
   );

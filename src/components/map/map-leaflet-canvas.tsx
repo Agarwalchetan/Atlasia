@@ -78,7 +78,7 @@ export function LeafletCanvas({ onLocationSelect, flyTo, markerPos }: MapCanvasP
 
   return (
     <div className="relative w-full h-full">
-      <div ref={containerRef} className="absolute inset-0" />
+      <div ref={containerRef} className="absolute inset-0" style={{ width: '100%', height: '100%' }} />
       {!loaded && (
         <div className="absolute inset-0 map-canvas-placeholder flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-3">
