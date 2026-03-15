@@ -13,6 +13,15 @@ import {
   Copy,
   Check,
   Sparkles,
+  Globe,
+  HandMetal,
+  Map,
+  Utensils,
+  Siren,
+  Bus,
+  ShoppingBag,
+  BedDouble,
+  type LucideIcon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,6 +32,10 @@ import { useLanguage } from "@/lib/language-context";
 import { useTranslations } from "@/lib/use-translations";
 import { PHRASE_CATEGORIES } from "@/lib/utils";
 import type { Phrase } from "@/types";
+
+const LUCIDE_MAP: Record<string, LucideIcon> = {
+  HandMetal, Map, Utensils, Siren, Bus, ShoppingBag, BedDouble, Globe,
+};
 
 function PhrasesPageContent() {
   const searchParams = useSearchParams();
@@ -117,7 +130,7 @@ function PhrasesPageContent() {
   });
 
   const categoryData = [
-          { id: "all", label: t.allCategory, icon: "🌐" },
+          { id: "all", label: t.allCategory, icon: "Globe" },
     ...PHRASE_CATEGORIES,
   ];
 
@@ -179,7 +192,7 @@ function PhrasesPageContent() {
                       : "bg-stone-900/60 text-stone-400 border border-stone-800 hover:bg-stone-800/80"
                   }`}
                 >
-                  <span>{cat.icon}</span>
+                  {(() => { const CatIcon = LUCIDE_MAP[cat.icon]; return CatIcon ? <CatIcon size={14} /> : null; })()}
                   {cat.label}
                 </button>
               ))}
@@ -217,8 +230,8 @@ function PhrasesPageContent() {
                 >
                   <Card className="hover:border-stone-700/80 transition-colors duration-300 group">
                     <div className="flex items-start justify-between gap-2 mb-3">
-                      <Badge variant="info" className="text-xs shrink-0">
-                        {PHRASE_CATEGORIES.find((c) => c.id === phrase.category)?.icon}{" "}
+                      <Badge variant="info" className="text-xs shrink-0 gap-1">
+                        {(() => { const cat = PHRASE_CATEGORIES.find((c) => c.id === phrase.category); const CatIcon = cat ? LUCIDE_MAP[cat.icon] : undefined; return CatIcon ? <CatIcon size={10} /> : null; })()}
                         {PHRASE_CATEGORIES.find((c) => c.id === phrase.category)?.label || phrase.category}
                       </Badge>
                       <div className="flex items-center gap-1.5">
@@ -264,8 +277,8 @@ function PhrasesPageContent() {
 
                     {/* Pronunciation */}
                     {phrase.pronunciation && (
-                      <div className="flex items-start gap-2 text-xs text-amber-500/70">
-                        <span className="shrink-0">🔊</span>
+                        <div className="flex items-start gap-2 text-xs text-amber-500/70">
+                        <Volume2 size={12} className="shrink-0 text-amber-500/70" />
                         <span className="italic font-mono">{phrase.pronunciation}</span>
                       </div>
                     )}

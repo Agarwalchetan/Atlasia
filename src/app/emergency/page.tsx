@@ -15,6 +15,15 @@ import {
   Siren,
   Pill,
   Navigation,
+  Stethoscope,
+  Ambulance,
+  ShieldAlert,
+  Map,
+  NutOff,
+  Wind,
+  MessageSquare,
+  FileX,
+  Droplets,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -30,23 +39,23 @@ interface EmergencyPhrase {
   translated: string;
   pronunciation: string;
   category: string;
-  icon: string;
+  icon: React.ElementType;
   severity: "critical" | "urgent" | "important";
 }
 
 const EMERGENCY_PHRASES: Omit<EmergencyPhrase, "translated" | "pronunciation">[] = [
-  { id: "1", english: "Help! I need a doctor!", category: "medical", icon: "🏥", severity: "critical" },
-  { id: "2", english: "Call an ambulance!", category: "medical", icon: "🚑", severity: "critical" },
-  { id: "3", english: "Call the police!", category: "police", icon: "🚔", severity: "critical" },
-  { id: "4", english: "I am lost. Please help me.", category: "general", icon: "🗺️", severity: "urgent" },
-  { id: "5", english: "I am having an allergic reaction.", category: "medical", icon: "⚠️", severity: "critical" },
-  { id: "6", english: "I am allergic to peanuts.", category: "medical", icon: "🥜", severity: "important" },
-  { id: "7", english: "Where is the nearest hospital?", category: "medical", icon: "🏥", severity: "urgent" },
-  { id: "8", english: "I have been robbed. Call the police.", category: "police", icon: "🚨", severity: "critical" },
-  { id: "9", english: "I need a translator.", category: "general", icon: "🗣️", severity: "important" },
-  { id: "10", english: "My passport has been stolen.", category: "police", icon: "📄", severity: "urgent" },
-  { id: "11", english: "I cannot breathe properly.", category: "medical", icon: "💨", severity: "critical" },
-  { id: "12", english: "Where is the nearest pharmacy?", category: "medical", icon: "💊", severity: "important" },
+  { id: "1", english: "Help! I need a doctor!", category: "medical", icon: Stethoscope, severity: "critical" },
+  { id: "2", english: "Call an ambulance!", category: "medical", icon: Ambulance, severity: "critical" },
+  { id: "3", english: "Call the police!", category: "police", icon: ShieldAlert, severity: "critical" },
+  { id: "4", english: "I am lost. Please help me.", category: "general", icon: Map, severity: "urgent" },
+  { id: "5", english: "I am having an allergic reaction.", category: "medical", icon: AlertTriangle, severity: "critical" },
+  { id: "6", english: "I am allergic to peanuts.", category: "medical", icon: NutOff, severity: "important" },
+  { id: "7", english: "Where is the nearest hospital?", category: "medical", icon: Stethoscope, severity: "urgent" },
+  { id: "8", english: "I have been robbed. Call the police.", category: "police", icon: Siren, severity: "critical" },
+  { id: "9", english: "I need a translator.", category: "general", icon: MessageSquare, severity: "important" },
+  { id: "10", english: "My passport has been stolen.", category: "police", icon: FileX, severity: "urgent" },
+  { id: "11", english: "I cannot breathe properly.", category: "medical", icon: Wind, severity: "critical" },
+  { id: "12", english: "Where is the nearest pharmacy?", category: "medical", icon: Pill, severity: "important" },
 ];
 
 const EMERGENCY_CONTACTS: Record<string, { police: string; ambulance: string; fire: string; embassy?: string }> = {
@@ -168,7 +177,7 @@ export default function EmergencyPage() {
 
   const langOptions = SUPPORTED_LANGUAGES.map((l) => ({
     value: l.code,
-    label: `${l.flag} ${l.name}`,
+    label: l.name,
   }));
 
   const countryOptions = Object.keys(EMERGENCY_CONTACTS).filter(k => k !== "default").map(c => ({
@@ -317,11 +326,11 @@ export default function EmergencyPage() {
                               : "border-l-teal-500"
                           } hover:border-stone-700/80 transition-colors`}
                         >
-                          <div className="flex items-start justify-between gap-2 mb-2">
-                            <div className="flex items-center gap-2">
-                              <span className="text-lg">{phrase.icon}</span>
-                              <span className="text-xs text-stone-500">{phrase.category}</span>
-                            </div>
+                           <div className="flex items-start justify-between gap-2 mb-2">
+                             <div className="flex items-center gap-2">
+                               {(() => { const PhraseIcon = phrase.icon; return <PhraseIcon size={18} className="text-stone-400 shrink-0" />; })()}
+                               <span className="text-xs text-stone-500">{phrase.category}</span>
+                             </div>
                             <div className="flex items-center gap-1.5">
                               <button
                                 onClick={() => handleCopy(phrase.id, phrase.translated || phrase.english)}
@@ -353,10 +362,10 @@ export default function EmergencyPage() {
                           <p className="text-xs text-stone-400 mb-2">{phrase.english}</p>
                           <p className="text-sm font-medium font-mono text-stone-50">{phrase.translated}</p>
                           {phrase.pronunciation && (
-                            <p className="text-xs text-amber-500/60 mt-1 italic font-mono">
-                              🔊 {phrase.pronunciation}
-                            </p>
-                          )}
+                             <p className="text-xs text-amber-500/60 mt-1 italic font-mono flex items-center gap-1">
+                               <Volume2 size={10} className="shrink-0" /> {phrase.pronunciation}
+                             </p>
+                           )}
                         </Card>
                       </motion.div>
                     ))}
@@ -383,21 +392,21 @@ export default function EmergencyPage() {
                 {t.medicalAlertDesc}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {[
-                  { label: t.bloodTypeLabel, placeholder: "e.g. A+", icon: "🩸" },
-                  { label: t.allergiesLabel, placeholder: "e.g. Peanuts, Penicillin", icon: "⚠️" },
-                  { label: t.medicationsLabel, placeholder: "e.g. Insulin", icon: "💊" },
-                ].map(({ label, placeholder, icon }) => (
-                  <div key={label}>
-                    <label className="text-xs text-stone-400 mb-1.5 block">{icon} {label}</label>
-                    <input
-                      type="text"
-                      placeholder={placeholder}
-                      className="w-full bg-stone-900/60 border border-stone-800 rounded-xl px-3 py-2 text-sm text-stone-50 placeholder:text-stone-500 outline-none focus:border-rose-500/40 transition-colors"
-                    />
-                  </div>
-                ))}
-              </div>
+                 {[
+                   { label: t.bloodTypeLabel, placeholder: "e.g. A+", MedIcon: Droplets },
+                   { label: t.allergiesLabel, placeholder: "e.g. Peanuts, Penicillin", MedIcon: AlertTriangle },
+                   { label: t.medicationsLabel, placeholder: "e.g. Insulin", MedIcon: Pill },
+                 ].map(({ label, placeholder, MedIcon }) => (
+                   <div key={label}>
+                     <label className="text-xs text-stone-400 mb-1.5 flex items-center gap-1"><MedIcon size={12} /> {label}</label>
+                     <input
+                       type="text"
+                       placeholder={placeholder}
+                       className="w-full bg-stone-900/60 border border-stone-800 rounded-xl px-3 py-2 text-sm text-stone-50 placeholder:text-stone-500 outline-none focus:border-rose-500/40 transition-colors"
+                     />
+                   </div>
+                 ))}
+               </div>
             </Card>
           </motion.div>
         </div>

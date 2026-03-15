@@ -21,6 +21,14 @@ import {
   Github,
   Heart,
 } from "lucide-react";
+import {
+  ToriiGateIcon,
+  EiffelTowerIcon,
+  StatueOfLibertyIcon,
+  BurjKhalifaIcon,
+  TempleSpireIcon,
+  ColosseumIcon,
+} from "@/components/icons/landmarks";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -59,12 +67,12 @@ function useCountUp(target: number, duration = 1500, startOnView = true) {
 }
 
 const destinations = [
-  { name: "Tokyo", country: "Japan", emoji: "🗼", lat: 35.6762, lng: 139.6503 },
-  { name: "Paris", country: "France", emoji: "🗺️", lat: 48.8566, lng: 2.3522 },
-  { name: "New York", country: "USA", emoji: "🗽", lat: 40.7128, lng: -74.0060 },
-  { name: "Dubai", country: "UAE", emoji: "🏙️", lat: 25.2048, lng: 55.2708 },
-  { name: "Bangkok", country: "Thailand", emoji: "⛩️", lat: 13.7563, lng: 100.5018 },
-  { name: "Rome", country: "Italy", emoji: "🏛️", lat: 41.9028, lng: 12.4964 },
+  { name: "Tokyo", country: "Japan", Icon: ToriiGateIcon, lat: 35.6762, lng: 139.6503 },
+  { name: "Paris", country: "France", Icon: EiffelTowerIcon, lat: 48.8566, lng: 2.3522 },
+  { name: "New York", country: "USA", Icon: StatueOfLibertyIcon, lat: 40.7128, lng: -74.0060 },
+  { name: "Dubai", country: "UAE", Icon: BurjKhalifaIcon, lat: 25.2048, lng: 55.2708 },
+  { name: "Bangkok", country: "Thailand", Icon: TempleSpireIcon, lat: 13.7563, lng: 100.5018 },
+  { name: "Rome", country: "Italy", Icon: ColosseumIcon, lat: 41.9028, lng: 12.4964 },
 ];
 
 function AnimatedStat({
@@ -340,12 +348,12 @@ export default function HomePage() {
             viewport={{ once: true }}
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4"
           >
-            {destinations.map(({ name, country, emoji }) => (
+            {destinations.map(({ name, country, Icon }) => (
               <motion.div key={name} variants={itemVariants}>
                 <Link href={`/travel-guide?location=${encodeURIComponent(name + ", " + country)}`}>
                   <Card className="text-center py-6 px-4 hover:border-stone-700/80 hover:bg-stone-800/40 transition-colors duration-300 cursor-pointer group">
-                    <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
-                      {emoji}
+                    <div className="flex items-center justify-center mb-3 text-amber-400 group-hover:scale-110 transition-transform duration-300">
+                      <Icon size={40} />
                     </div>
                     <div className="font-semibold text-stone-50 text-sm">{name}</div>
                     <div className="text-xs text-stone-500 mt-1">{country}</div>
@@ -441,7 +449,9 @@ export default function HomePage() {
             <Card className="text-center py-16 px-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-stone-900/5 to-teal-500/10" />
               <div className="relative">
-                <div className="text-5xl mb-4 inline-block animate-float">🌍</div>
+                <div className="mb-4 inline-flex items-center justify-center animate-float text-amber-400">
+                  <Globe size={52} />
+                </div>
                 <h2 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-4">
                   {t.ctaHeading}
                 </h2>

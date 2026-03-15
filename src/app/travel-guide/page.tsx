@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { Icon as IconifyIcon } from "@iconify/react";
 import {
   BookOpen,
   MapPin,
@@ -22,6 +23,17 @@ import {
   Clock,
   Heart,
   DollarSign,
+  AlertTriangle,
+  XCircle,
+  CheckCircle2,
+  Sunrise,
+  Sun,
+  Moon,
+  Lightbulb,
+  Handshake,
+  UtensilsCrossed,
+  Ban,
+  Shirt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -199,9 +211,9 @@ function TravelGuidePage() {
               <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] text-stone-50">{t.pageTitle}</h1>
               <p className="text-stone-400 text-sm">
                 {t.pageSubtitlePrefix}{" "}
-                <span className="text-amber-500">
-                  {currentLang?.flag} {currentLang?.name}
-                </span>
+                <span className="text-amber-500 inline-flex items-center gap-1">
+                    {currentLang?.flag && <IconifyIcon icon={currentLang.flag} width={16} />} {currentLang?.name}
+                  </span>
               </p>
             </div>
           </motion.div>
@@ -335,7 +347,9 @@ function TravelGuidePage() {
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {guide.famousFood?.map((food, i) => (
                           <Card key={i} className="flex gap-3">
-                            <div className="text-2xl">🍜</div>
+                            <div className="shrink-0 flex items-start pt-0.5">
+                              <Utensils size={20} className="text-teal-400" />
+                            </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
                                 <span className="font-semibold text-sm text-stone-50">{food.name}</span>
@@ -343,8 +357,8 @@ function TravelGuidePage() {
                               </div>
                               <p className="text-xs text-stone-400">{food.description}</p>
                               {food.where && (
-                                <p className="text-xs text-amber-500 mt-1">📍 {food.where}</p>
-                              )}
+                                 <p className="text-xs text-amber-500 mt-1 flex items-center gap-1"><MapPin size={10} className="shrink-0" />{food.where}</p>
+                               )}
                             </div>
                           </Card>
                         ))}
@@ -369,8 +383,12 @@ function TravelGuidePage() {
                                 : "border-l-teal-500"
                             }`}
                           >
-                            <div className="text-lg">
-                              {tip.severity === "important" ? "⚠️" : tip.severity === "avoid" ? "🚫" : "✅"}
+                            <div className="shrink-0">
+                              {tip.severity === "important"
+                                ? <AlertTriangle size={18} className="text-rose-400" />
+                                : tip.severity === "avoid"
+                                ? <XCircle size={18} className="text-amber-400" />
+                                : <CheckCircle2 size={18} className="text-teal-400" />}
                             </div>
                             <div>
                               <span className="text-xs font-medium text-stone-500 uppercase tracking-wide">
@@ -428,8 +446,10 @@ function TravelGuidePage() {
                         </div>
                         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                           {guide.emergencyNumbers.map((contact, i) => (
-                            <Card key={i} className="text-center py-4">
-                              <div className="text-2xl mb-1">📞</div>
+                             <Card key={i} className="text-center py-4">
+                               <div className="flex items-center justify-center mb-1">
+                                 <Phone size={20} className="text-rose-400" />
+                               </div>
                               <div className="font-bold text-lg text-rose-400">{contact.number}</div>
                               <div className="text-xs text-stone-400">{contact.service}</div>
                             </Card>
@@ -483,10 +503,10 @@ function TravelGuidePage() {
                         value={budget}
                         onValueChange={setBudget}
                         options={[
-                          { value: "budget", label: "Budget 💰" },
-                          { value: "moderate", label: "Moderate 💰💰" },
-                          { value: "luxury", label: "Luxury 💰💰💰" },
-                        ]}
+                           { value: "budget", label: "Budget" },
+                           { value: "moderate", label: "Moderate" },
+                           { value: "luxury", label: "Luxury" },
+                         ]}
                       />
                     </div>
                   </div>
@@ -556,14 +576,14 @@ function TravelGuidePage() {
                             >
                               <div className="mt-4 space-y-4 border-t border-stone-800/60 pt-4">
                                 {[
-                                   { label: t.morning, activities: day.morning, emoji: "🌅" },
-                                   { label: t.afternoon, activities: day.afternoon, emoji: "☀️" },
-                                   { label: t.evening, activities: day.evening, emoji: "🌙" },
-                                ].map(({ label, activities, emoji }) => (
+                                   { label: t.morning, activities: day.morning, TimeIcon: Sunrise },
+                                   { label: t.afternoon, activities: day.afternoon, TimeIcon: Sun },
+                                   { label: t.evening, activities: day.evening, TimeIcon: Moon },
+                                ].map(({ label, activities, TimeIcon }) => (
                                   activities && activities.length > 0 && (
                                     <div key={label}>
                                       <div className="text-xs font-medium text-stone-500 mb-3 flex items-center gap-1.5">
-                                        <span>{emoji}</span>
+                                        <TimeIcon size={14} className="shrink-0" />
                                         {label}
                                       </div>
                                       <div className="space-y-3">
@@ -580,7 +600,7 @@ function TravelGuidePage() {
                                                 <div>
                                                   <span className="text-xs text-amber-500 font-medium">{act.time}</span>
                                                   <div className="font-medium text-sm text-stone-50 mt-0.5">{act.activity}</div>
-                                                  <div className="text-xs text-stone-500 mt-0.5">📍 {act.location}</div>
+                                                   <div className="text-xs text-stone-500 mt-0.5 flex items-center gap-1"><MapPin size={10} className="shrink-0" />{act.location}</div>
                                                 </div>
                                                 {act.duration && (
                                                   <Badge variant="outline" className="shrink-0 text-xs">
@@ -590,9 +610,9 @@ function TravelGuidePage() {
                                                 )}
                                               </div>
                                               <p className="text-xs text-stone-400 mt-1">{act.description}</p>
-                                              {act.tips && (
-                                                <p className="text-xs text-amber-400/80 mt-1">💡 {act.tips}</p>
-                                              )}
+                                               {act.tips && (
+                                                 <p className="text-xs text-amber-400/80 mt-1 flex items-center gap-1"><Lightbulb size={10} className="shrink-0" />{act.tips}</p>
+                                               )}
                                             </div>
                                           </div>
                                         ))}
@@ -644,38 +664,42 @@ function TravelGuidePage() {
                       {
                         key: "greetingCustoms",
                         label: t.greetingCustoms,
-                        icon: "🤝",
+                        CulIcon: Handshake,
                         color: "from-amber-500/20 to-amber-600/10",
                         border: "border-amber-500/20",
+                        iconColor: "text-amber-400",
                       },
                       {
                         key: "diningEtiquette",
                         label: t.diningEtiquette,
-                        icon: "🍽️",
+                        CulIcon: UtensilsCrossed,
                         color: "from-teal-500/20 to-teal-600/10",
                         border: "border-teal-500/20",
+                        iconColor: "text-teal-400",
                       },
                       {
                         key: "socialNorms",
                         label: t.socialNorms,
-                        icon: "👥",
+                        CulIcon: Users,
                         color: "from-amber-400/20 to-amber-500/10",
                         border: "border-amber-400/20",
+                        iconColor: "text-amber-300",
                       },
                       {
                         key: "thingsToAvoid",
                         label: t.thingsToAvoid,
-                        icon: "🚫",
+                        CulIcon: Ban,
                         color: "from-rose-500/20 to-rose-600/10",
                         border: "border-rose-500/20",
+                        iconColor: "text-rose-400",
                       },
-                    ].map(({ key, label, icon, color, border }) => (
+                    ].map(({ key, label, CulIcon, color, border, iconColor }) => (
                       <Card
                         key={key}
                         className={`bg-gradient-to-br ${color} border ${border}`}
                       >
                         <div className="flex items-center gap-2 mb-4">
-                          <span className="text-xl">{icon}</span>
+                          <CulIcon size={20} className={iconColor} />
                           <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{label}</h3>
                         </div>
                         <ul className="space-y-2">
@@ -690,11 +714,11 @@ function TravelGuidePage() {
                     ))}
 
                     {/* Dresscode & Tipping */}
-                    <Card className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xl">👗</span>
-                        <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{t.dressCode}</h3>
-                      </div>
+                     <Card className="bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20">
+                       <div className="flex items-center gap-2 mb-3">
+                         <Shirt size={20} className="text-amber-400" />
+                         <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{t.dressCode}</h3>
+                       </div>
                       <p className="text-sm text-stone-400">{culturalIntel.dresscode as string}</p>
                     </Card>
 

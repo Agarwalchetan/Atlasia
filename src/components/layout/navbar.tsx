@@ -15,6 +15,7 @@ import {
   Languages,
   ChevronDown,
 } from "lucide-react";
+import { Icon as IconifyIcon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import { SUPPORTED_LANGUAGES } from "@/lib/utils";
 import { useTranslations } from "@/lib/use-translations";
@@ -114,7 +115,7 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
                   onClick={() => setLangOpen(!langOpen)}
                   className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-900/60 border border-stone-800 text-stone-300 hover:bg-stone-800/60 hover:text-stone-100 text-sm font-medium transition-colors duration-200 cursor-pointer"
                 >
-                  <span className="text-base">{currentLang?.flag}</span>
+                   <span className="text-base">{currentLang?.flag && <IconifyIcon icon={currentLang.flag} width={20} />}</span>
                   <span className="hidden sm:block">{currentLang?.name}</span>
                   <ChevronDown size={14} className={cn("text-stone-500 transition-transform duration-200", langOpen && "rotate-180")} />
                 </button>
@@ -143,7 +144,7 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
                                 : "text-stone-400 hover:bg-stone-800/60 hover:text-stone-100"
                             )}
                           >
-                            <span className="text-base">{lang.flag}</span>
+                             <span className="text-base"><IconifyIcon icon={lang.flag} width={20} /></span>
                             <div className="flex flex-col items-start">
                               <span className="font-medium">{lang.name}</span>
                               <span className="text-xs text-stone-500">{lang.nativeName}</span>
