@@ -211,8 +211,8 @@ export default function ConversationPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-slate-950 pt-16">
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(251,146,60,0.05),transparent)] pointer-events-none" />
+    <div className="min-h-screen bg-stone-950 pt-16">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(217,119,6,0.04),transparent)] pointer-events-none" />
 
       <div className="px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-4xl mx-auto">
@@ -222,12 +222,12 @@ export default function ConversationPage() {
             animate={{ opacity: 1, y: 0 }}
             className="flex items-center gap-3 mb-6"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-orange-500 to-amber-600 flex items-center justify-center">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
               <Mic size={18} className="text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-white">{t.pageTitle}</h1>
-              <p className="text-white/50 text-sm">{t.pageSubtitle}</p>
+              <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] text-stone-50">{t.pageTitle}</h1>
+              <p className="text-stone-400 text-sm">{t.pageSubtitle}</p>
             </div>
           </motion.div>
 
@@ -240,17 +240,17 @@ export default function ConversationPage() {
             <Card className="mb-6">
               <div className="flex items-center gap-3">
                 <div className="flex-1">
-                  <label className="text-xs text-white/40 mb-1.5 block">{t.personASpeaks}</label>
+                  <label className="text-xs text-stone-400 mb-1.5 block">{t.personASpeaks}</label>
                   <Select value={langA} onValueChange={setLangA} options={langOptions} />
                 </div>
                 <button
                   onClick={swapLanguages}
-                  className="mt-5 p-2.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white/60 hover:text-white transition-all cursor-pointer"
+                  className="mt-5 p-2.5 rounded-xl bg-stone-900/60 border border-stone-800 hover:bg-stone-800/80 text-stone-400 hover:text-stone-50 transition-colors cursor-pointer active:scale-[0.97]"
                 >
                   <ArrowLeftRight size={18} />
                 </button>
                 <div className="flex-1">
-                  <label className="text-xs text-white/40 mb-1.5 block">{t.personBSpeaks}</label>
+                  <label className="text-xs text-stone-400 mb-1.5 block">{t.personBSpeaks}</label>
                   <Select value={langB} onValueChange={setLangB} options={langOptions} />
                 </div>
               </div>
@@ -271,7 +271,7 @@ export default function ConversationPage() {
               onStartRecording={() => startRecording("A")}
               onStopRecording={() => stopRecording("A")}
               onTextSubmit={(text) => handleTextInput(text, "A")}
-              color="from-sky-500 to-blue-600"
+              color="from-amber-500 to-amber-600"
               recordingLabel={t.recordingLabel}
               tapToStop={t.tapToStop}
               tapToSpeak={t.tapToSpeak}
@@ -290,7 +290,7 @@ export default function ConversationPage() {
               onStartRecording={() => startRecording("B")}
               onStopRecording={() => stopRecording("B")}
               onTextSubmit={(text) => handleTextInput(text, "B")}
-              color="from-violet-500 to-purple-600"
+              color="from-teal-500 to-teal-600"
               recordingLabel={t.recordingLabel}
               tapToStop={t.tapToStop}
               tapToSpeak={t.tapToSpeak}
@@ -305,10 +305,10 @@ export default function ConversationPage() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.95 }}
-                className="flex items-center justify-center gap-3 py-4 mb-4 rounded-2xl bg-orange-500/10 border border-orange-500/20"
+                className="flex items-center justify-center gap-3 py-4 mb-4 rounded-2xl bg-amber-500/10 border border-amber-500/20"
               >
-                <Loader2 size={16} className="animate-spin text-orange-400" />
-                <span className="text-orange-400 text-sm font-medium">
+                <Loader2 size={16} className="animate-spin text-amber-500" />
+                <span className="text-amber-500 text-sm font-medium">
                   {t.processingTranslation}
                 </span>
               </motion.div>
@@ -319,8 +319,8 @@ export default function ConversationPage() {
           <div>
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-2">
-                <MessageSquare size={16} className="text-white/40" />
-                <h3 className="font-semibold text-white">{t.conversationLabel}</h3>
+                <MessageSquare size={16} className="text-stone-500" />
+                <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{t.conversationLabel}</h3>
                 {messages.length > 0 && (
                   <Badge variant="outline">{messages.length}</Badge>
                 )}
@@ -328,7 +328,7 @@ export default function ConversationPage() {
               {messages.length > 0 && (
                 <button
                   onClick={() => setMessages([])}
-                  className="flex items-center gap-1.5 text-xs text-white/40 hover:text-red-400 transition-colors cursor-pointer"
+                  className="flex items-center gap-1.5 text-xs text-stone-500 hover:text-rose-400 transition-colors cursor-pointer"
                 >
                   <Trash2 size={12} />
                   {t.clearBtn}
@@ -338,11 +338,11 @@ export default function ConversationPage() {
 
             {messages.length === 0 ? (
               <div className="text-center py-16">
-                <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center mx-auto mb-4">
-                  <Radio size={28} className="text-white/20" />
+                <div className="w-16 h-16 rounded-2xl bg-stone-900/60 flex items-center justify-center mx-auto mb-4">
+                  <Radio size={28} className="text-stone-600" />
                 </div>
-                <h3 className="text-white/40 font-medium mb-2">{t.emptyTitle}</h3>
-                <p className="text-white/25 text-sm max-w-xs mx-auto">
+                <h3 className="text-stone-400 font-medium mb-2">{t.emptyTitle}</h3>
+                <p className="text-stone-500 text-sm max-w-xs mx-auto">
                   {t.emptyDesc}
                 </p>
               </div>
@@ -360,40 +360,40 @@ export default function ConversationPage() {
                       <div
                         className={`max-w-[85%] ${
                           msg.role === "user"
-                            ? "bg-sky-500/10 border border-sky-500/20"
-                            : "bg-violet-500/10 border border-violet-500/20"
+                            ? "bg-amber-500/10 border border-amber-500/20"
+                            : "bg-teal-500/10 border border-teal-500/20"
                         } rounded-2xl p-4`}
                       >
                         <div className="flex items-center justify-between gap-4 mb-2">
-                            <span className="text-xs text-white/40">
+                            <span className="text-xs text-stone-500">
                               {getLangFlag(msg.originalLang)} {t.originalLabel}
                             </span>
-                          <span className="text-xs text-white/30">
+                          <span className="text-xs text-stone-600">
                             {new Date(msg.timestamp).toLocaleTimeString([], {
                               hour: "2-digit",
                               minute: "2-digit",
                             })}
                           </span>
                         </div>
-                        <p className="text-sm text-white/70 mb-3">{msg.originalText}</p>
+                        <p className="text-sm text-stone-300 mb-3">{msg.originalText}</p>
 
-                        <div className="border-t border-white/10 pt-3">
+                        <div className="border-t border-stone-800/60 pt-3">
                           <div className="flex items-center justify-between mb-1">
-                            <span className="text-xs text-white/40">
+                            <span className="text-xs text-stone-500">
                               {getLangFlag(msg.targetLang)} {t.translationLabel}
                             </span>
                             <button
                               onClick={() => playAudio(msg.translatedText, msg.id)}
-                              className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-colors cursor-pointer"
+                              className="p-1.5 rounded-lg hover:bg-stone-800/80 text-stone-500 hover:text-stone-50 transition-colors cursor-pointer"
                             >
                               {playingId === msg.id ? (
-                                <Loader2 size={12} className="animate-spin text-orange-400" />
+                                <Loader2 size={12} className="animate-spin text-amber-500" />
                               ) : (
                                 <Volume2 size={12} />
                               )}
                             </button>
                           </div>
-                          <p className="text-base text-white font-medium">{msg.translatedText}</p>
+                          <p className="text-base text-stone-50 font-medium font-mono">{msg.translatedText}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -452,8 +452,8 @@ function RecorderPanel({
           {flag}
         </div>
         <div>
-          <div className="font-semibold text-white text-sm">{label}</div>
-          <div className="text-xs text-white/40">{langName}</div>
+          <div className="font-semibold font-[family-name:var(--font-sora)] text-stone-50 text-sm">{label}</div>
+          <div className="text-xs text-stone-500">{langName}</div>
         </div>
         {isRecording && (
           <Badge variant="danger" className="ml-auto animate-pulse">
@@ -468,10 +468,10 @@ function RecorderPanel({
           whileTap={{ scale: 0.95 }}
           onClick={isRecording ? onStopRecording : onStartRecording}
           disabled={isDisabled && !isRecording}
-          className={`w-20 h-20 rounded-full flex items-center justify-center transition-all cursor-pointer shadow-xl ${
+          className={`w-20 h-20 rounded-full flex items-center justify-center transition-colors cursor-pointer shadow-xl ${
             isRecording
-              ? "bg-red-500 shadow-red-500/40 animate-pulse"
-              : `bg-gradient-to-br ${color} shadow-sky-500/20`
+              ? "bg-rose-500 shadow-rose-500/40 animate-pulse"
+              : `bg-gradient-to-br ${color} shadow-amber-600/20`
           } disabled:opacity-40 disabled:cursor-not-allowed`}
         >
           {isRecording ? (
@@ -482,12 +482,12 @@ function RecorderPanel({
         </motion.button>
       </div>
 
-      <div className="text-center text-xs text-white/40">
+      <div className="text-center text-xs text-stone-500">
         {isRecording ? tapToStop : tapToSpeak}
       </div>
 
       {/* Text Input Alternative */}
-      <div className="border-t border-white/10 pt-4">
+      <div className="border-t border-stone-800/60 pt-4">
         <div className="flex gap-2">
           <input
             type="text"
@@ -500,7 +500,7 @@ function RecorderPanel({
                 setTextInput("");
               }
             }}
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder:text-white/30 outline-none focus:border-white/25 transition-colors"
+            className="flex-1 bg-stone-900/60 border border-stone-800 rounded-xl px-3 py-2 text-sm text-stone-50 placeholder:text-stone-500 outline-none focus:border-amber-500/50 transition-colors"
           />
           <button
             onClick={() => {
@@ -510,7 +510,7 @@ function RecorderPanel({
               }
             }}
             disabled={!textInput.trim()}
-            className={`p-2 rounded-xl bg-gradient-to-br ${color} text-white disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed transition-opacity`}
+            className={`p-2 rounded-xl bg-gradient-to-br ${color} text-white disabled:opacity-40 cursor-pointer disabled:cursor-not-allowed transition-opacity active:scale-[0.97]`}
           >
             <Sparkles size={16} />
           </button>

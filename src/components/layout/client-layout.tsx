@@ -8,16 +8,17 @@ import { LanguageProvider, useLanguage } from "@/lib/language-context";
 function LayoutInner({ children }: { children: ReactNode }) {
   const { language, setLanguage } = useLanguage();
   return (
-    <div className="min-h-screen bg-slate-950">
+    <div className="min-h-screen bg-stone-950">
       <Navbar selectedLanguage={language} onLanguageChange={setLanguage} />
       <main>{children}</main>
       <Toaster
         theme="dark"
         toastOptions={{
           style: {
-            background: "rgba(15,23,42,0.95)",
-            border: "1px solid rgba(255,255,255,0.1)",
-            color: "white",
+            background: "rgba(28,25,23,0.95)",
+            border: "1px solid rgba(168,162,158,0.12)",
+            color: "#fafaf9",
+            backdropFilter: "blur(24px)",
           },
         }}
       />

@@ -79,12 +79,12 @@ function AnimatedStat({
   const { count, ref } = useCountUp(numericValue ?? 0, 1200);
   return (
     <div ref={ref}>
-      <Card className="text-center p-6 hover:border-white/20 transition-colors group">
-        <Icon size={20} className="mx-auto mb-2 text-sky-400 group-hover:scale-110 transition-transform duration-300" />
-        <div className="text-3xl font-bold text-white mb-1">
+      <Card className="text-center p-6 hover:border-stone-700/80 transition-colors group">
+        <Icon size={20} className="mx-auto mb-2 text-amber-500 group-hover:scale-110 transition-transform duration-300" />
+        <div className="text-3xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-1">
           {numericValue !== null ? `${count}${suffix}` : suffix}
         </div>
-        <div className="text-sm text-white/50">{label}</div>
+        <div className="text-sm text-stone-400">{label}</div>
       </Card>
     </div>
   );
@@ -173,21 +173,21 @@ export default function HomePage() {
   ];
 
   const features = [
-    { icon: Map, title: t.feat1Title, description: t.feat1Desc, color: "from-sky-500 to-blue-600", href: "/map" },
-    { icon: BookOpen, title: t.feat2Title, description: t.feat2Desc, color: "from-violet-500 to-purple-600", href: "/travel-guide" },
-    { icon: Languages, title: t.feat3Title, description: t.feat3Desc, color: "from-emerald-500 to-teal-600", href: "/phrases" },
-    { icon: Mic, title: t.feat4Title, description: t.feat4Desc, color: "from-orange-500 to-amber-600", href: "/conversation" },
-    { icon: AlertTriangle, title: t.feat5Title, description: t.feat5Desc, color: "from-red-500 to-rose-600", href: "/emergency" },
-    { icon: Brain, title: t.feat6Title, description: t.feat6Desc, color: "from-pink-500 to-fuchsia-600", href: "/travel-guide" },
+    { icon: Map, title: t.feat1Title, description: t.feat1Desc, color: "from-amber-500 to-amber-600", href: "/map" },
+    { icon: BookOpen, title: t.feat2Title, description: t.feat2Desc, color: "from-teal-500 to-teal-600", href: "/travel-guide" },
+    { icon: Languages, title: t.feat3Title, description: t.feat3Desc, color: "from-teal-400 to-teal-500", href: "/phrases" },
+    { icon: Mic, title: t.feat4Title, description: t.feat4Desc, color: "from-amber-400 to-amber-600", href: "/conversation" },
+    { icon: AlertTriangle, title: t.feat5Title, description: t.feat5Desc, color: "from-rose-500 to-rose-600", href: "/emergency" },
+    { icon: Brain, title: t.feat6Title, description: t.feat6Desc, color: "from-amber-500 to-teal-500", href: "/travel-guide" },
   ];
 
 
   return (
     <div className="relative min-h-screen overflow-hidden">
       {/* Background */}
-      <div className="fixed inset-0 bg-slate-950">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(56,189,248,0.08),rgba(255,255,255,0))]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(129,140,248,0.06),transparent)]" />
+      <div className="fixed inset-0 bg-stone-950">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(217,119,6,0.07),rgba(255,255,255,0))]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(13,148,136,0.05),transparent)]" />
         {/* Grid */}
         <div
           className="absolute inset-0 opacity-[0.02]"
@@ -214,7 +214,7 @@ export default function HomePage() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-sky-500/10 border border-sky-500/20 text-sky-400 text-sm font-medium mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 text-sm font-medium mb-8"
             >
               <Sparkles size={14} />
               {t.heroBadge}
@@ -222,20 +222,20 @@ export default function HomePage() {
             </motion.div>
 
             {/* Main Heading */}
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.1] tracking-tight">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-6 leading-[1.1] tracking-tight">
               {t.heroHeading1}
               <br />
               <span className="gradient-text">{t.heroHeading2}</span>
             </h1>
 
-            <p className="text-xl text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-xl text-stone-400 max-w-2xl mx-auto mb-10 leading-relaxed">
               {t.heroSubtitle}
             </p>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/map">
-                <Button size="lg" className="gap-2 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-shadow">
+                <Button size="lg" className="gap-2 shadow-lg shadow-amber-600/25 hover:shadow-amber-600/40 transition-shadow">
                   <Globe size={18} />
                   {t.heroCtaMap}
                   <ArrowRight size={16} />
@@ -277,10 +277,10 @@ export default function HomePage() {
             className="text-center mb-12"
           >
             <Badge variant="info" className="mb-4">{t.featuresBadge}</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-4">
               {t.featuresHeading}
             </h2>
-            <p className="text-white/50 max-w-xl mx-auto">
+            <p className="text-stone-400 max-w-xl mx-auto">
               {t.featuresSubtitle}
             </p>
           </motion.div>
@@ -295,13 +295,13 @@ export default function HomePage() {
             {features.map(({ icon: Icon, title, description, color, href }) => (
               <motion.div key={title} variants={itemVariants}>
                 <Link href={href}>
-                  <Card className="group h-full hover:border-white/20 hover:bg-white/8 transition-all duration-300 cursor-pointer">
+                  <Card className="group h-full hover:border-stone-700/80 hover:bg-stone-800/40 transition-colors duration-300 cursor-pointer">
                     <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
                       <Icon size={22} className="text-white" />
                     </div>
-                    <h3 className="text-lg font-semibold text-white mb-2">{title}</h3>
-                    <p className="text-sm text-white/50 leading-relaxed">{description}</p>
-                    <div className="flex items-center gap-1 mt-4 text-sky-400 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                    <h3 className="text-lg font-semibold font-[family-name:var(--font-sora)] text-stone-50 mb-2">{title}</h3>
+                    <p className="text-sm text-stone-400 leading-relaxed">{description}</p>
+                    <div className="flex items-center gap-1 mt-4 text-amber-500 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                       {t.featExplore} <ChevronRight size={14} />
                     </div>
                   </Card>
@@ -323,10 +323,10 @@ export default function HomePage() {
             className="text-center mb-12"
           >
             <Badge variant="success" className="mb-4">{t.destBadge}</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-4">
               {t.destHeading}
             </h2>
-            <p className="text-white/50 max-w-xl mx-auto">
+            <p className="text-stone-400 max-w-xl mx-auto">
               {t.destSubtitle}
             </p>
           </motion.div>
@@ -341,12 +341,12 @@ export default function HomePage() {
             {destinations.map(({ name, country, emoji }) => (
               <motion.div key={name} variants={itemVariants}>
                 <Link href={`/travel-guide?location=${encodeURIComponent(name + ", " + country)}`}>
-                  <Card className="text-center py-6 px-4 hover:border-white/25 hover:bg-white/8 transition-all duration-300 cursor-pointer group">
+                  <Card className="text-center py-6 px-4 hover:border-stone-700/80 hover:bg-stone-800/40 transition-colors duration-300 cursor-pointer group">
                     <div className="text-4xl mb-3 group-hover:scale-110 transition-transform duration-300">
                       {emoji}
                     </div>
-                    <div className="font-semibold text-white text-sm">{name}</div>
-                    <div className="text-xs text-white/40 mt-1">{country}</div>
+                    <div className="font-semibold text-stone-50 text-sm">{name}</div>
+                    <div className="text-xs text-stone-500 mt-1">{country}</div>
                   </Card>
                 </Link>
               </motion.div>
@@ -366,7 +366,7 @@ export default function HomePage() {
             className="text-center mb-12"
           >
             <Badge variant="warning" className="mb-4">{t.killerBadge}</Badge>
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-4">
               {t.killerHeading}
             </h2>
           </motion.div>
@@ -375,7 +375,7 @@ export default function HomePage() {
             {[
               {
                 icon: Brain,
-                color: "from-pink-500 to-rose-600",
+                color: "from-amber-500 to-amber-600",
                 title: t.killer1Title,
                 subtitle: t.killer1Sub,
                 desc: t.killer1Desc,
@@ -383,7 +383,7 @@ export default function HomePage() {
               },
               {
                 icon: Calendar,
-                color: "from-violet-500 to-indigo-600",
+                color: "from-teal-500 to-teal-600",
                 title: t.killer2Title,
                 subtitle: t.killer2Sub,
                 desc: t.killer2Desc,
@@ -391,7 +391,7 @@ export default function HomePage() {
               },
               {
                 icon: Zap,
-                color: "from-amber-500 to-orange-600",
+                color: "from-amber-400 to-amber-600",
                 title: t.killer3Title,
                 subtitle: t.killer3Sub,
                 desc: t.killer3Desc,
@@ -405,17 +405,17 @@ export default function HomePage() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <Card className="h-full hover:border-white/20 transition-all duration-300">
+                <Card className="h-full hover:border-stone-700/80 transition-colors duration-300">
                   <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${color} flex items-center justify-center mb-5 shadow-xl`}>
                     <Icon size={26} className="text-white" />
                   </div>
-                  <div className="text-xs text-white/40 font-medium mb-1 uppercase tracking-wider">{subtitle}</div>
-                  <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-                  <p className="text-sm text-white/50 leading-relaxed mb-5">{desc}</p>
+                  <div className="text-xs text-stone-500 font-medium mb-1 uppercase tracking-wider">{subtitle}</div>
+                  <h3 className="text-xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-3">{title}</h3>
+                  <p className="text-sm text-stone-400 leading-relaxed mb-5">{desc}</p>
                   <div className="space-y-2">
                     {items.map((item) => (
-                      <div key={item} className="flex items-center gap-2 text-sm text-white/60">
-                        <div className="w-1.5 h-1.5 rounded-full bg-sky-400" />
+                      <div key={item} className="flex items-center gap-2 text-sm text-stone-400">
+                        <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                         {item}
                       </div>
                     ))}
@@ -437,18 +437,18 @@ export default function HomePage() {
             transition={{ duration: 0.6 }}
           >
             <Card className="text-center py-16 px-8 relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-indigo-500/5 to-violet-500/10" />
+              <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-stone-900/5 to-teal-500/10" />
               <div className="relative">
                 <div className="text-5xl mb-4 inline-block animate-float">🌍</div>
-                <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
+                <h2 className="text-3xl sm:text-4xl font-bold font-[family-name:var(--font-sora)] text-stone-50 mb-4">
                   {t.ctaHeading}
                 </h2>
-                <p className="text-white/50 mb-8 max-w-xl mx-auto">
+                <p className="text-stone-400 mb-8 max-w-xl mx-auto">
                   {t.ctaSubtitle}
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Link href="/map">
-                    <Button size="lg" className="gap-2 shadow-lg shadow-sky-500/25 animate-glow">
+                    <Button size="lg" className="gap-2 shadow-lg shadow-amber-600/25 animate-glow">
                       <Globe size={18} />
                       {t.ctaMap}
                       <ArrowRight size={16} />
@@ -468,18 +468,18 @@ export default function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="relative border-t border-white/5 px-4 sm:px-6 lg:px-8 py-8">
+      <footer className="relative border-t border-stone-800/50 px-4 sm:px-6 lg:px-8 py-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center">
               <Globe size={14} className="text-white" />
             </div>
-            <span className="text-white font-semibold">Atla<span className="text-sky-400">sia</span></span>
+            <span className="text-stone-50 font-semibold font-[family-name:var(--font-sora)]">Atla<span className="text-amber-500">sia</span></span>
           </div>
-          <p className="text-white/30 text-sm">
+          <p className="text-stone-500 text-sm">
             {t.footerTagline}
           </p>
-          <div className="flex items-center gap-1 text-white/30 text-sm">
+          <div className="flex items-center gap-1 text-stone-500 text-sm">
             <Star size={12} className="fill-current" />
             {t.footerBuilt}
           </div>

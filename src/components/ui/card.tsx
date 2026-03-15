@@ -8,15 +8,20 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ className, variant = "glass", ...props }, ref) => {
     const variantClass = {
-      default: "bg-white/5 border border-white/10",
-      glass: "bg-white/5 backdrop-blur-md border border-white/10 shadow-xl",
-      solid: "bg-slate-800 border border-slate-700",
+      default: "bg-stone-900/50 border border-stone-800/80",
+      glass:
+        "bg-stone-900/40 backdrop-blur-xl border border-stone-800/60 shadow-xl shadow-black/20",
+      solid: "bg-stone-900 border border-stone-800",
     }[variant];
 
     return (
       <div
         ref={ref}
-        className={cn("rounded-2xl p-5 transition-all duration-200", variantClass, className)}
+        className={cn(
+          "rounded-2xl p-6 transition-colors duration-200",
+          variantClass,
+          className
+        )}
         {...props}
       />
     );
@@ -33,14 +38,14 @@ CardHeader.displayName = "CardHeader";
 
 export const CardTitle = React.forwardRef<HTMLHeadingElement, React.HTMLAttributes<HTMLHeadingElement>>(
   ({ className, ...props }, ref) => (
-    <h3 ref={ref} className={cn("text-lg font-semibold text-white", className)} {...props} />
+    <h3 ref={ref} className={cn("text-lg font-semibold text-stone-50 font-[family-name:var(--font-sora)]", className)} {...props} />
   )
 );
 CardTitle.displayName = "CardTitle";
 
 export const CardDescription = React.forwardRef<HTMLParagraphElement, React.HTMLAttributes<HTMLParagraphElement>>(
   ({ className, ...props }, ref) => (
-    <p ref={ref} className={cn("text-sm text-white/60", className)} {...props} />
+    <p ref={ref} className={cn("text-sm text-stone-400", className)} {...props} />
   )
 );
 CardDescription.displayName = "CardDescription";

@@ -177,8 +177,8 @@ export default function EmergencyPage() {
   }));
 
   return (
-    <div className="min-h-screen bg-slate-950 pt-16">
-      <div className="fixed inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(239,68,68,0.06),transparent)] pointer-events-none" />
+    <div className="min-h-screen bg-stone-950 pt-16">
+      <div className="fixed inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(225,29,72,0.05),transparent)] pointer-events-none" />
 
       <div className="px-4 sm:px-6 lg:px-8 py-6">
         <div className="max-w-5xl mx-auto">
@@ -189,12 +189,12 @@ export default function EmergencyPage() {
             className="flex items-center justify-between gap-3 mb-6"
           >
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center">
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-rose-500 to-rose-600 flex items-center justify-center">
                 <AlertTriangle size={18} className="text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">{t.pageTitle}</h1>
-                <p className="text-white/50 text-sm">
+                <h1 className="text-2xl font-bold font-[family-name:var(--font-sora)] text-stone-50">{t.pageTitle}</h1>
+                <p className="text-stone-400 text-sm">
                   {t.pageSubtitle}
                 </p>
               </div>
@@ -211,12 +211,12 @@ export default function EmergencyPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
           >
-            <Card className="mb-6 bg-gradient-to-r from-red-500/10 to-rose-500/10 border-red-500/20">
+            <Card className="mb-6 bg-gradient-to-r from-rose-500/10 to-rose-600/10 border-rose-500/20">
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-3">
-                    <Phone size={16} className="text-red-400" />
-                    <h3 className="font-semibold text-white">{t.emergencyNumbersTitle}</h3>
+                    <Phone size={16} className="text-rose-400" />
+                    <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{t.emergencyNumbersTitle}</h3>
                     <Select
                       value={selectedCountry}
                       onValueChange={setSelectedCountry}
@@ -226,18 +226,18 @@ export default function EmergencyPage() {
                   </div>
                   <div className="grid grid-cols-3 gap-3">
                     {[
-                      { icon: Shield, label: t.policeLabel, number: contacts.police, color: "text-blue-400" },
-                      { icon: Heart, label: t.ambulanceLabel, number: contacts.ambulance, color: "text-red-400" },
-                      { icon: Siren, label: t.fireLabel, number: contacts.fire, color: "text-orange-400" },
+                      { icon: Shield, label: t.policeLabel, number: contacts.police, color: "text-amber-400" },
+                      { icon: Heart, label: t.ambulanceLabel, number: contacts.ambulance, color: "text-rose-400" },
+                      { icon: Siren, label: t.fireLabel, number: contacts.fire, color: "text-amber-500" },
                     ].map(({ icon: Icon, label, number, color }) => (
                       <a
                         key={label}
                         href={`tel:${number}`}
-                        className="flex flex-col items-center gap-1 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors border border-white/10"
+                        className="flex flex-col items-center gap-1 p-3 rounded-xl bg-stone-900/60 hover:bg-stone-800/80 transition-colors border border-stone-800/60 active:scale-[0.97]"
                       >
                         <Icon size={20} className={color} />
                         <span className={`text-xl font-bold ${color}`}>{number}</span>
-                        <span className="text-xs text-white/50">{label}</span>
+                        <span className="text-xs text-stone-400">{label}</span>
                       </a>
                     ))}
                   </div>
@@ -253,10 +253,10 @@ export default function EmergencyPage() {
             transition={{ delay: 0.15 }}
           >
             <Card className="mb-6">
-              <h3 className="font-semibold text-white mb-4">{t.translatePhrasesTitle}</h3>
+              <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50 mb-4">{t.translatePhrasesTitle}</h3>
               <div className="flex gap-3">
                 <div className="flex-1">
-                  <label className="text-xs text-white/40 mb-1.5 block">{t.targetLangLabel}</label>
+                  <label className="text-xs text-stone-400 mb-1.5 block">{t.targetLangLabel}</label>
                   <Select
                     value={targetLang}
                     onValueChange={setTargetLang}
@@ -285,9 +285,9 @@ export default function EmergencyPage() {
           <div className="space-y-6">
             {/* Critical phrases first */}
             {[
-              { severity: "critical" as const, label: t.criticalEmergency, icon: <Siren size={16} className="text-red-400" />, borderColor: "border-red-500/30" },
-              { severity: "urgent" as const, label: t.urgentSituations, icon: <AlertTriangle size={16} className="text-orange-400" />, borderColor: "border-orange-500/30" },
-              { severity: "important" as const, label: t.importantPhrases, icon: <Shield size={16} className="text-blue-400" />, borderColor: "border-blue-500/30" },
+              { severity: "critical" as const, label: t.criticalEmergency, icon: <Siren size={16} className="text-rose-400" />, borderColor: "border-rose-500/30" },
+              { severity: "urgent" as const, label: t.urgentSituations, icon: <AlertTriangle size={16} className="text-amber-400" />, borderColor: "border-amber-500/30" },
+              { severity: "important" as const, label: t.importantPhrases, icon: <Shield size={16} className="text-teal-400" />, borderColor: "border-teal-500/30" },
             ].map(({ severity, label, icon, borderColor }) => {
               const sevPhrases = phrases.filter((p) => p.severity === severity);
               if (!sevPhrases.length) return null;
@@ -295,7 +295,7 @@ export default function EmergencyPage() {
                 <div key={severity}>
                   <div className="flex items-center gap-2 mb-3">
                     {icon}
-                    <h3 className="font-semibold text-white">{label}</h3>
+                    <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{label}</h3>
                     <Badge variant={severity === "critical" ? "danger" : severity === "urgent" ? "warning" : "info"}>
                       {sevPhrases.length}
                     </Badge>
@@ -311,24 +311,24 @@ export default function EmergencyPage() {
                         <Card
                           className={`border-l-2 ${
                             severity === "critical"
-                              ? "border-l-red-500"
+                              ? "border-l-rose-500"
                               : severity === "urgent"
-                              ? "border-l-orange-500"
-                              : "border-l-blue-500"
-                          } hover:border-white/20 transition-colors`}
+                              ? "border-l-amber-500"
+                              : "border-l-teal-500"
+                          } hover:border-stone-700/80 transition-colors`}
                         >
                           <div className="flex items-start justify-between gap-2 mb-2">
                             <div className="flex items-center gap-2">
                               <span className="text-lg">{phrase.icon}</span>
-                              <span className="text-xs text-white/40">{phrase.category}</span>
+                              <span className="text-xs text-stone-500">{phrase.category}</span>
                             </div>
                             <div className="flex items-center gap-1.5">
                               <button
                                 onClick={() => handleCopy(phrase.id, phrase.translated || phrase.english)}
-                                className="p-1.5 rounded-lg hover:bg-white/10 text-white/40 hover:text-white transition-colors cursor-pointer"
+                                className="p-1.5 rounded-lg hover:bg-stone-800/80 text-stone-500 hover:text-stone-50 transition-colors cursor-pointer"
                               >
                                 {copiedId === phrase.id ? (
-                                  <Check size={13} className="text-emerald-400" />
+                                  <Check size={13} className="text-teal-400" />
                                 ) : (
                                   <Copy size={13} />
                                 )}
@@ -338,8 +338,8 @@ export default function EmergencyPage() {
                                 disabled={playingId === phrase.id}
                                 className={`p-1.5 rounded-lg transition-colors cursor-pointer disabled:opacity-50 ${
                                   severity === "critical"
-                                    ? "bg-red-500/20 hover:bg-red-500/30 text-red-400"
-                                    : "bg-sky-500/10 hover:bg-sky-500/20 text-sky-400"
+                                    ? "bg-rose-500/20 hover:bg-rose-500/30 text-rose-400"
+                                    : "bg-amber-500/10 hover:bg-amber-500/20 text-amber-500"
                                 }`}
                               >
                                 {playingId === phrase.id ? (
@@ -350,10 +350,10 @@ export default function EmergencyPage() {
                               </button>
                             </div>
                           </div>
-                          <p className="text-xs text-white/50 mb-2">{phrase.english}</p>
-                          <p className="text-sm font-medium text-white">{phrase.translated}</p>
+                          <p className="text-xs text-stone-400 mb-2">{phrase.english}</p>
+                          <p className="text-sm font-medium font-mono text-stone-50">{phrase.translated}</p>
                           {phrase.pronunciation && (
-                            <p className="text-xs text-sky-400/60 mt-1 italic">
+                            <p className="text-xs text-amber-500/60 mt-1 italic font-mono">
                               🔊 {phrase.pronunciation}
                             </p>
                           )}
@@ -373,13 +373,13 @@ export default function EmergencyPage() {
             viewport={{ once: true }}
             className="mt-8"
           >
-            <Card className="bg-gradient-to-br from-pink-500/10 to-rose-500/10 border-pink-500/20">
+            <Card className="bg-gradient-to-br from-rose-500/10 to-rose-600/10 border-rose-500/20">
               <div className="flex items-center gap-2 mb-4">
-                <Pill size={18} className="text-pink-400" />
-                <h3 className="font-semibold text-white">{t.medicalAlertTitle}</h3>
+                <Pill size={18} className="text-rose-400" />
+                <h3 className="font-semibold font-[family-name:var(--font-sora)] text-stone-50">{t.medicalAlertTitle}</h3>
                 <Badge variant="warning">Print or Screenshot</Badge>
               </div>
-              <p className="text-sm text-white/50 mb-4">
+              <p className="text-sm text-stone-400 mb-4">
                 {t.medicalAlertDesc}
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
@@ -389,11 +389,11 @@ export default function EmergencyPage() {
                   { label: t.medicationsLabel, placeholder: "e.g. Insulin", icon: "💊" },
                 ].map(({ label, placeholder, icon }) => (
                   <div key={label}>
-                    <label className="text-xs text-white/40 mb-1.5 block">{icon} {label}</label>
+                    <label className="text-xs text-stone-400 mb-1.5 block">{icon} {label}</label>
                     <input
                       type="text"
                       placeholder={placeholder}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-sm text-white placeholder:text-white/25 outline-none focus:border-pink-500/40 transition-colors"
+                      className="w-full bg-stone-900/60 border border-stone-800 rounded-xl px-3 py-2 text-sm text-stone-50 placeholder:text-stone-500 outline-none focus:border-rose-500/40 transition-colors"
                     />
                   </div>
                 ))}

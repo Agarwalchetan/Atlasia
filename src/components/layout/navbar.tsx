@@ -13,6 +13,7 @@ import {
   Menu,
   X,
   Languages,
+  ChevronDown,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { SUPPORTED_LANGUAGES } from "@/lib/utils";
@@ -68,9 +69,9 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
         animate={{ y: 0 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          "fixed top-0 left-0 right-0 z-50 transition-colors duration-300",
           isScrolled
-            ? "bg-slate-950/80 backdrop-blur-xl border-b border-white/10 shadow-2xl"
+            ? "bg-stone-950/85 backdrop-blur-2xl border-b border-stone-800/60 shadow-2xl shadow-black/30"
             : "bg-transparent"
         )}
       >
@@ -78,11 +79,11 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-sky-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-sky-500/25 group-hover:shadow-sky-500/40 transition-shadow">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center shadow-lg shadow-amber-900/30 group-hover:shadow-amber-800/50 transition-shadow duration-300">
                 <Globe size={16} className="text-white" />
               </div>
-              <span className="text-white font-bold text-xl tracking-tight">
-                Atla<span className="text-sky-400">sia</span>
+              <span className="text-stone-50 font-bold text-xl tracking-tight font-[family-name:var(--font-sora)]">
+                Atla<span className="text-amber-500">sia</span>
               </span>
             </Link>
 
@@ -93,10 +94,10 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
                   key={href}
                   href={href}
                   className={cn(
-                    "flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-200",
+                    "flex items-center gap-2 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200",
                     pathname === href
-                      ? "bg-sky-500/20 text-sky-400 border border-sky-500/30"
-                      : "text-white/60 hover:text-white hover:bg-white/10"
+                      ? "bg-amber-500/15 text-amber-400 border border-amber-500/25"
+                      : "text-stone-400 hover:text-stone-100 hover:bg-stone-800/50"
                   )}
                 >
                   <Icon size={14} />
@@ -111,11 +112,11 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
               <div className="relative">
                 <button
                   onClick={() => setLangOpen(!langOpen)}
-                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 hover:text-white text-sm font-medium transition-all duration-200 cursor-pointer"
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-stone-900/60 border border-stone-800 text-stone-300 hover:bg-stone-800/60 hover:text-stone-100 text-sm font-medium transition-colors duration-200 cursor-pointer"
                 >
                   <span className="text-base">{currentLang?.flag}</span>
                   <span className="hidden sm:block">{currentLang?.name}</span>
-                  <Languages size={14} className="text-white/40" />
+                  <ChevronDown size={14} className={cn("text-stone-500 transition-transform duration-200", langOpen && "rotate-180")} />
                 </button>
 
                 <AnimatePresence>
@@ -125,7 +126,7 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
                       animate={{ opacity: 1, y: 0, scale: 1 }}
                       exit={{ opacity: 0, y: 8, scale: 0.95 }}
                       transition={{ duration: 0.15 }}
-                      className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden z-50"
+                      className="absolute right-0 top-full mt-2 w-56 rounded-2xl bg-stone-900/95 backdrop-blur-2xl border border-stone-800/80 shadow-2xl shadow-black/40 overflow-hidden z-50"
                     >
                       <div className="p-2 max-h-72 overflow-y-auto">
                         {SUPPORTED_LANGUAGES.map((lang) => (
@@ -136,16 +137,16 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
                               setLangOpen(false);
                             }}
                             className={cn(
-                              "w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-all duration-150 cursor-pointer",
+                              "w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-colors duration-150 cursor-pointer",
                               selectedLanguage === lang.code
-                                ? "bg-sky-500/20 text-sky-400"
-                                : "text-white/70 hover:bg-white/10 hover:text-white"
+                                ? "bg-amber-500/15 text-amber-400"
+                                : "text-stone-400 hover:bg-stone-800/60 hover:text-stone-100"
                             )}
                           >
                             <span className="text-base">{lang.flag}</span>
                             <div className="flex flex-col items-start">
                               <span className="font-medium">{lang.name}</span>
-                              <span className="text-xs text-white/40">{lang.nativeName}</span>
+                              <span className="text-xs text-stone-500">{lang.nativeName}</span>
                             </div>
                           </button>
                         ))}
@@ -158,7 +159,7 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="md:hidden p-2 rounded-xl bg-white/5 border border-white/10 text-white/80 hover:bg-white/10 transition-all cursor-pointer"
+                className="md:hidden p-2 rounded-xl bg-stone-900/60 border border-stone-800 text-stone-400 hover:bg-stone-800/60 hover:text-stone-100 transition-colors duration-200 cursor-pointer"
               >
                 {mobileOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
@@ -173,7 +174,7 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              className="md:hidden border-t border-white/10 bg-slate-950/95 backdrop-blur-xl overflow-hidden"
+              className="md:hidden border-t border-stone-800/60 bg-stone-950/95 backdrop-blur-2xl overflow-hidden"
             >
               <div className="p-4 space-y-1">
                 {navLinks.map(({ href, label, icon: Icon }) => (
@@ -182,10 +183,10 @@ export function Navbar({ selectedLanguage, onLanguageChange }: NavbarProps) {
                     href={href}
                     onClick={() => setMobileOpen(false)}
                     className={cn(
-                      "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all duration-200",
+                      "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-200",
                       pathname === href
-                        ? "bg-sky-500/20 text-sky-400 border border-sky-500/30"
-                        : "text-white/60 hover:text-white hover:bg-white/10"
+                        ? "bg-amber-500/15 text-amber-400 border border-amber-500/25"
+                        : "text-stone-400 hover:text-stone-100 hover:bg-stone-800/50"
                     )}
                   >
                     <Icon size={16} />

@@ -1,11 +1,23 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Sora, DM_Mono } from "next/font/google";
 import "./globals.css";
 import { ClientLayout } from "@/components/layout/client-layout";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  variable: "--font-dm-mono",
+  weight: ["300", "400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} font-sans antialiased bg-slate-950 text-white`}>
+        <body className={`${inter.variable} ${sora.variable} ${dmMono.variable} font-sans antialiased bg-stone-950 text-stone-50`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>

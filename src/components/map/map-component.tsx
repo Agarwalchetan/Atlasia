@@ -133,20 +133,20 @@ function MapUI({
 
   return (
     <>
-      {/* Search bar */}
+      {/* Search bar — floating pill with prominent shadow (Google Maps design language) */}
       <div className="absolute top-4 left-4 right-4 z-[1000] flex gap-2">
         <div className="flex-1 relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
           <input
             type="text"
             placeholder="Search any city or country..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="w-full pl-9 pr-4 py-3 rounded-xl bg-slate-950/90 border border-white/15 backdrop-blur-xl text-white placeholder:text-white/40 text-sm outline-none focus:border-sky-500/50 focus:ring-2 focus:ring-sky-500/20 shadow-xl"
+            className="w-full pl-9 pr-4 py-3 rounded-xl bg-stone-950/90 border border-stone-800/60 backdrop-blur-xl text-stone-50 placeholder:text-stone-500 text-sm outline-none focus:border-amber-500/50 focus:ring-2 focus:ring-amber-500/20 shadow-xl shadow-black/30 transition-colors"
           />
           {isSearching && (
-            <Loader2 size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-sky-400 animate-spin" />
+            <Loader2 size={14} className="absolute right-3 top-1/2 -translate-y-1/2 text-amber-500 animate-spin" />
           )}
           <AnimatePresence>
             {searchResults.length > 0 && (
@@ -154,7 +154,7 @@ function MapUI({
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 4 }}
-                className="absolute top-full mt-2 left-0 right-0 bg-slate-950/95 backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden shadow-2xl"
+                className="absolute top-full mt-2 left-0 right-0 bg-stone-950/95 backdrop-blur-xl border border-stone-800/60 rounded-xl overflow-hidden shadow-2xl shadow-black/40"
               >
                 {searchResults.map((result, i) => (
                   <button
@@ -164,12 +164,12 @@ function MapUI({
                       setSearchResults([]);
                       setSearchQuery("");
                     }}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors text-left cursor-pointer border-b border-white/5 last:border-0"
+                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-stone-800/60 transition-colors text-left cursor-pointer border-b border-stone-800/40 last:border-0"
                   >
-                    <MapPin size={14} className="text-sky-400 shrink-0" />
+                    <MapPin size={14} className="text-amber-500 shrink-0" />
                     <div>
-                      <div className="text-sm font-medium text-white">{result.name}</div>
-                      <div className="text-xs text-white/40">{result.country}</div>
+                      <div className="text-sm font-medium text-stone-50">{result.name}</div>
+                      <div className="text-xs text-stone-500">{result.country}</div>
                     </div>
                   </button>
                 ))}
@@ -177,7 +177,7 @@ function MapUI({
             )}
           </AnimatePresence>
         </div>
-        <Button onClick={handleSearch} size="icon" className="shrink-0 h-11 w-11 shadow-lg">
+        <Button onClick={handleSearch} size="icon" className="shrink-0 h-11 w-11 shadow-lg shadow-black/30">
           <Search size={16} />
         </Button>
         <Button
@@ -191,14 +191,14 @@ function MapUI({
         </Button>
       </div>
 
-      {/* Quick select */}
+      {/* Quick select — elevated drawer sheet */}
       <div className="absolute bottom-4 left-4 right-4 z-[1000]">
         <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
           {POPULAR_LOCATIONS.map((loc) => (
             <button
               key={loc.name}
               onClick={() => onSelectLocation(loc)}
-              className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-950/80 backdrop-blur-xl border border-white/10 text-white/70 hover:text-white hover:bg-slate-900/90 hover:border-white/20 transition-all text-sm font-medium cursor-pointer"
+              className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl bg-stone-950/80 backdrop-blur-xl border border-stone-800/60 text-stone-400 hover:text-stone-50 hover:bg-stone-900/90 hover:border-stone-700/80 transition-colors text-sm font-medium cursor-pointer active:scale-[0.97]"
             >
               <span>{loc.emoji}</span>
               {loc.name}
@@ -207,7 +207,7 @@ function MapUI({
         </div>
       </div>
 
-      {/* Location panel */}
+      {/* Location panel — floating card with shadow-2xl (Google Maps design language) */}
       <AnimatePresence>
         {showPanel && selectedLocation && (
           <motion.div
@@ -217,27 +217,27 @@ function MapUI({
             transition={{ duration: 0.3 }}
             className="absolute top-20 right-4 z-[1000] w-80"
           >
-            <Card className="shadow-2xl">
+            <Card className="shadow-2xl shadow-black/40">
               <div className="flex items-start justify-between mb-4">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-500 to-indigo-600 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center">
                     <MapPin size={18} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-white text-lg">{selectedLocation.name}</h3>
-                    <p className="text-sm text-white/50">{selectedLocation.country}</p>
+                    <h3 className="font-bold font-[family-name:var(--font-sora)] text-stone-50 text-lg">{selectedLocation.name}</h3>
+                    <p className="text-sm text-stone-400">{selectedLocation.country}</p>
                   </div>
                 </div>
                 <button
                   onClick={() => setShowPanel(false)}
-                  className="text-white/40 hover:text-white transition-colors cursor-pointer"
+                  className="text-stone-500 hover:text-stone-50 transition-colors cursor-pointer"
                 >
                   <X size={18} />
                 </button>
               </div>
-              <div className="text-sm text-white/50 mb-4">
-                <span className="text-white/30">Coordinates: </span>
-                {selectedLocation.lat.toFixed(4)}°, {selectedLocation.lng.toFixed(4)}°
+              <div className="text-sm text-stone-400 mb-4">
+                <span className="text-stone-500">Coordinates: </span>
+                {selectedLocation.lat.toFixed(4)}, {selectedLocation.lng.toFixed(4)}
               </div>
               <div className="grid grid-cols-1 gap-2">
                 <Link href={`/travel-guide?location=${encodeURIComponent(selectedLocation.name + ", " + selectedLocation.country)}`}>
@@ -261,10 +261,10 @@ function MapUI({
               </div>
               <div className="mt-4 flex items-center gap-2">
                 <Badge variant="info">
-                  {selectedLocation.lat > 0 ? "N" : "S"}{Math.abs(selectedLocation.lat).toFixed(2)}°
+                  {selectedLocation.lat > 0 ? "N" : "S"}{Math.abs(selectedLocation.lat).toFixed(2)}
                 </Badge>
                 <Badge variant="outline">
-                  {selectedLocation.lng > 0 ? "E" : "W"}{Math.abs(selectedLocation.lng).toFixed(2)}°
+                  {selectedLocation.lng > 0 ? "E" : "W"}{Math.abs(selectedLocation.lng).toFixed(2)}
                 </Badge>
               </div>
             </Card>
@@ -278,10 +278,10 @@ function MapUI({
 // ---------------------------------------------------------------------------
 // MapLibre GL map — MapTiler tiles, globe projection
 // Fixed for MapLibre GL v5:
-//   • CSS imported from local node_modules (no race condition)
-//   • Globe set via map.setProjection({ type: "globe" }) after load
-//   • setFog removed (does not exist in v5)
-//   • MapTiler style URL corrected
+//   CSS imported from local node_modules (no race condition)
+//   Globe set via map.setProjection({ type: "globe" }) after load
+//   setFog removed (does not exist in v5)
+//   MapTiler style URL corrected
 // ---------------------------------------------------------------------------
 function MapLibreMap({
   onLocationSelect,
@@ -371,7 +371,7 @@ function MapLibreMap({
     });
   }, [flyTo]);
 
-  // Marker
+  // Marker — amber/teal accent instead of default blue/red
   useEffect(() => {
     if (!markerPos || !mapRef.current) return;
     import("maplibre-gl").then(({ default: maplibregl }) => {
@@ -380,11 +380,11 @@ function MapLibreMap({
       const el = document.createElement("div");
       el.style.cssText = `
         width:36px;height:36px;position:relative;
-        background:linear-gradient(135deg,#0ea5e9,#6366f1);
+        background:linear-gradient(135deg,#d97706,#0d9488);
         border-radius:50% 50% 50% 0;
         transform:rotate(-45deg);
         border:3px solid white;
-        box-shadow:0 4px 20px rgba(14,165,233,0.5);
+        box-shadow:0 4px 20px rgba(217,119,6,0.5);
         cursor:pointer;
       `;
       const inner = document.createElement("div");
@@ -406,11 +406,11 @@ function MapLibreMap({
 
   if (error) {
     return (
-      <div className="absolute inset-0 bg-slate-900 rounded-2xl flex items-center justify-center p-8">
+      <div className="absolute inset-0 bg-stone-900 rounded-2xl flex items-center justify-center p-8">
         <div className="text-center max-w-sm">
-          <MapIcon size={40} className="mx-auto mb-4 text-red-400 opacity-60" />
-          <p className="text-white/60 text-sm">{error}</p>
-          <p className="text-white/30 text-xs mt-2">Falling back to Leaflet mode — remove the key to use it.</p>
+          <MapIcon size={40} className="mx-auto mb-4 text-rose-400 opacity-60" />
+          <p className="text-stone-400 text-sm">{error}</p>
+          <p className="text-stone-500 text-xs mt-2">Falling back to Leaflet mode — remove the key to use it.</p>
         </div>
       </div>
     );
@@ -420,10 +420,10 @@ function MapLibreMap({
     <div className="relative w-full h-full">
       <div ref={containerRef} className="absolute inset-0 rounded-2xl overflow-hidden" />
       {!loaded && (
-        <div className="absolute inset-0 bg-slate-950 rounded-2xl flex items-center justify-center z-10">
+        <div className="absolute inset-0 bg-stone-950 rounded-2xl flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-10 h-10 border-2 border-sky-500/30 border-t-sky-500 rounded-full animate-spin" />
-            <span className="text-white/50 text-sm">Loading globe…</span>
+            <div className="w-10 h-10 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+            <span className="text-stone-400 text-sm">Loading globe...</span>
           </div>
         </div>
       )}
@@ -470,7 +470,7 @@ function LeafletMap({
       const map = L.map(containerRef.current, { center: [20, 0], zoom: 2, zoomControl: false });
 
       L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-        attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/">CARTO</a>',
+        attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
         subdomains: "abcd",
         maxZoom: 19,
       }).addTo(map);
@@ -501,13 +501,14 @@ function LeafletMap({
     mapRef.current.flyTo([flyTo.lat, flyTo.lng], flyTo.zoom, { duration: 1.8 });
   }, [flyTo]);
 
+  // Marker — amber/teal accent instead of default blue/red
   useEffect(() => {
     if (!markerPos || !mapRef.current) return;
     import("leaflet").then(({ default: L }) => {
       markerRef.current?.remove();
       const icon = L.divIcon({
         className: "",
-        html: `<div style="width:32px;height:32px;position:relative;background:linear-gradient(135deg,#0ea5e9,#6366f1);border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid white;box-shadow:0 4px 16px rgba(14,165,233,0.5);">
+        html: `<div style="width:32px;height:32px;position:relative;background:linear-gradient(135deg,#d97706,#0d9488);border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid white;box-shadow:0 4px 16px rgba(217,119,6,0.5);">
           <span style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transform:rotate(45deg);font-size:12px;">📍</span>
         </div>`,
         iconSize: [32, 32],
@@ -515,7 +516,7 @@ function LeafletMap({
         popupAnchor: [16, -32],
       });
       markerRef.current = L.marker([markerPos.lat, markerPos.lng], { icon })
-        .bindPopup(`<b style="color:#0ea5e9">${markerPos.name}</b>`)
+        .bindPopup(`<b style="color:#d97706">${markerPos.name}</b>`)
         .addTo(mapRef.current)
         .openPopup();
     });
@@ -525,10 +526,10 @@ function LeafletMap({
     <div className="relative w-full h-full">
       <div ref={containerRef} className="absolute inset-0 rounded-2xl overflow-hidden" />
       {!loaded && (
-        <div className="absolute inset-0 bg-slate-950 rounded-2xl flex items-center justify-center z-10">
+        <div className="absolute inset-0 bg-stone-950 rounded-2xl flex items-center justify-center z-10">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-10 h-10 border-2 border-sky-500/30 border-t-sky-500 rounded-full animate-spin" />
-            <span className="text-white/50 text-sm">Loading map…</span>
+            <div className="w-10 h-10 border-2 border-amber-500/30 border-t-amber-500 rounded-full animate-spin" />
+            <span className="text-stone-400 text-sm">Loading map...</span>
           </div>
         </div>
       )}
@@ -558,7 +559,7 @@ export function MapComponent() {
     <div className="relative w-full h-full">
       {/* Provider badge */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1100] pointer-events-none">
-        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/70 backdrop-blur-md border border-white/10 text-white/30 text-xs">
+        <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-950/70 backdrop-blur-md border border-stone-800/60 text-stone-500 text-xs">
           <MapIcon size={10} />
           {MAPTILER_KEY ? "MapLibre GL · MapTiler · Globe" : "Leaflet · OpenStreetMap · CARTO"}
         </div>

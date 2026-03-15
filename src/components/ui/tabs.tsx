@@ -15,7 +15,7 @@ export function Tabs({ tabs, activeTab, onTabChange, className }: TabsProps) {
   return (
     <div
       className={cn(
-        "flex gap-1 rounded-2xl bg-white/5 border border-white/10 p-1",
+        "flex gap-1 rounded-2xl bg-stone-900/60 border border-stone-800/60 p-1",
         className
       )}
     >
@@ -24,10 +24,10 @@ export function Tabs({ tabs, activeTab, onTabChange, className }: TabsProps) {
           key={tab.id}
           onClick={() => onTabChange(tab.id)}
           className={cn(
-            "flex-1 flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-all duration-200 cursor-pointer",
+            "flex-1 flex items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-colors duration-200 cursor-pointer",
             activeTab === tab.id
-              ? "bg-sky-500 text-white shadow-lg shadow-sky-500/25"
-              : "text-white/60 hover:text-white hover:bg-white/5"
+              ? "bg-amber-600 text-white shadow-lg shadow-amber-900/25"
+              : "text-stone-400 hover:text-stone-200 hover:bg-stone-800/50"
           )}
         >
           {tab.icon}

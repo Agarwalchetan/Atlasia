@@ -3,15 +3,23 @@
 @import "leaflet/dist/leaflet.css";
 
 :root {
-  --background: #020817;
-  --foreground: #f8fafc;
+  --background: #0c0a09;
+  --foreground: #fafaf9;
   --font-sans: var(--font-inter);
+  --font-heading: var(--font-sora);
+  --font-mono: var(--font-dm-mono);
+  --accent: #d97706;
+  --accent-light: #f59e0b;
+  --teal: #0d9488;
+  --teal-light: #14b8a6;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
+  --font-heading: var(--font-sora);
+  --font-mono: var(--font-dm-mono);
 }
 
 * {
@@ -31,55 +39,67 @@ body {
   overflow-x: hidden;
 }
 
+/* Selection */
+::selection {
+  background: rgba(217, 119, 6, 0.3);
+  color: #fafaf9;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.02);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(168, 162, 158, 0.2);
   border-radius: 100px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(168, 162, 158, 0.35);
+}
+
+/* Focus rings — branded */
+:focus-visible {
+  outline: 2px solid rgba(217, 119, 6, 0.5);
+  outline-offset: 2px;
 }
 
 /* MapLibre GL overrides */
 .maplibregl-popup-content {
-  background: rgba(2, 8, 23, 0.95) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
-  padding: 12px 16px !important;
-  color: white !important;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+  background: rgba(28, 25, 23, 0.95) !important;
+  border: 1px solid rgba(168, 162, 158, 0.15) !important;
+  border-radius: 16px !important;
+  padding: 14px 18px !important;
+  color: #fafaf9 !important;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6) !important;
 }
 .maplibregl-popup-tip {
-  border-top-color: rgba(255, 255, 255, 0.1) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  border-top-color: rgba(168, 162, 158, 0.15) !important;
+  border-bottom-color: rgba(168, 162, 158, 0.15) !important;
 }
 .maplibregl-ctrl-group {
-  background: rgba(2, 8, 23, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(20px);
+  background: rgba(28, 25, 23, 0.85) !important;
+  border: 1px solid rgba(168, 162, 158, 0.15) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(24px);
 }
 .maplibregl-ctrl-group button {
-  color: white !important;
+  color: #fafaf9 !important;
 }
 .maplibregl-ctrl-group button:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(168, 162, 158, 0.12) !important;
 }
 .maplibregl-ctrl-attrib {
-  background: rgba(2, 8, 23, 0.7) !important;
-  color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(28, 25, 23, 0.7) !important;
+  color: rgba(168, 162, 158, 0.5) !important;
   border-radius: 8px !important;
 }
 .maplibregl-ctrl-attrib a {
-  color: rgba(14, 165, 233, 0.7) !important;
+  color: rgba(217, 119, 6, 0.6) !important;
 }
 .maplibregl-canvas {
   border-radius: inherit;
@@ -87,49 +107,61 @@ body {
 
 /* Leaflet overrides */
 .leaflet-popup-content-wrapper {
-  background: rgba(2, 8, 23, 0.95) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
-  color: white !important;
-  backdrop-filter: blur(20px);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5) !important;
+  background: rgba(28, 25, 23, 0.95) !important;
+  border: 1px solid rgba(168, 162, 158, 0.15) !important;
+  border-radius: 16px !important;
+  color: #fafaf9 !important;
+  backdrop-filter: blur(24px);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6) !important;
 }
 .leaflet-popup-tip {
-  background: rgba(2, 8, 23, 0.95) !important;
+  background: rgba(28, 25, 23, 0.95) !important;
 }
 .leaflet-control-zoom {
-  background: rgba(2, 8, 23, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 12px !important;
-  backdrop-filter: blur(20px);
+  background: rgba(28, 25, 23, 0.85) !important;
+  border: 1px solid rgba(168, 162, 158, 0.15) !important;
+  border-radius: 14px !important;
+  backdrop-filter: blur(24px);
   overflow: hidden;
 }
 .leaflet-control-zoom a {
   background: transparent !important;
-  color: white !important;
-  border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+  color: #fafaf9 !important;
+  border-bottom-color: rgba(168, 162, 158, 0.12) !important;
 }
 .leaflet-control-zoom a:hover {
-  background: rgba(255, 255, 255, 0.1) !important;
+  background: rgba(168, 162, 158, 0.12) !important;
 }
 .leaflet-control-attribution {
-  background: rgba(2, 8, 23, 0.7) !important;
-  color: rgba(255, 255, 255, 0.4) !important;
+  background: rgba(28, 25, 23, 0.7) !important;
+  color: rgba(168, 162, 158, 0.5) !important;
   border-radius: 8px !important;
 }
 .leaflet-control-attribution a {
-  color: rgba(14, 165, 233, 0.7) !important;
+  color: rgba(217, 119, 6, 0.6) !important;
 }
 
-/* Glass morphism */
+/* Glass morphism utility */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(28, 25, 23, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(168, 162, 158, 0.1);
 }
 
-/* Custom animations */
+/* Noise texture overlay utility */
+.noise-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* ─── Custom Animations ─── */
+
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
@@ -138,9 +170,9 @@ body {
 .shimmer {
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.03) 25%,
-    rgba(255, 255, 255, 0.08) 50%,
-    rgba(255, 255, 255, 0.03) 75%
+    rgba(168, 162, 158, 0.03) 25%,
+    rgba(168, 162, 158, 0.08) 50%,
+    rgba(168, 162, 158, 0.03) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
@@ -155,27 +187,79 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(14, 165, 233, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(217, 119, 6, 0.2); }
+  50% { box-shadow: 0 0 40px rgba(217, 119, 6, 0.45); }
 }
 .animate-glow {
   animation: pulse-glow 2s ease-in-out infinite;
 }
 
-/* Gradient text */
+@keyframes wave-bar {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+.animate-wave-bar {
+  animation: wave-bar 0.6s ease-in-out infinite;
+}
+
+@keyframes card-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-card-reveal {
+  animation: card-reveal 0.4s ease-out forwards;
+}
+
+@keyframes subtle-drift {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(2px, -3px); }
+  50% { transform: translate(-1px, 2px); }
+  75% { transform: translate(3px, 1px); }
+}
+.animate-drift {
+  animation: subtle-drift 8s ease-in-out infinite;
+}
+
+/* Gradient text — amber/teal palette */
 .gradient-text {
-  background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+  background: linear-gradient(135deg, #f59e0b, #d97706, #14b8a6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
-/* Star field background */
+/* Warm dot grid background */
+.dot-grid-bg {
+  background-image: radial-gradient(
+    rgba(168, 162, 158, 0.08) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+
+/* Subtle star field */
 .stars-bg {
-  background-image: 
-    radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 40% 70%, rgba(255,255,255,0.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.3) 0%, transparent 100%),
-    radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,0.2) 0%, transparent 100%),
-    radial-gradient(1px 1px at 90% 40%, rgba(255,255,255,0.15) 0%, transparent 100%);
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(217, 119, 6, 0.2) 0%, transparent 100%),
+    radial-gradient(1px 1px at 40% 70%, rgba(168, 162, 158, 0.15) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 20%, rgba(20, 184, 166, 0.18) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 60%, rgba(168, 162, 158, 0.12) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 40%, rgba(217, 119, 6, 0.1) 0%, transparent 100%);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-glow,
+  .animate-wave-bar,
+  .animate-drift,
+  .shimmer {
+    animation: none;
+  }
 }

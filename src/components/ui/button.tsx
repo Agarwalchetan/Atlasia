@@ -7,20 +7,26 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 }
 
 const variantClasses = {
-  default: "bg-sky-500 text-white hover:bg-sky-600 shadow-sm shadow-sky-500/25",
-  ghost: "hover:bg-white/10 text-white/80 hover:text-white",
-  outline: "border border-white/20 text-white/80 hover:bg-white/10 hover:text-white",
-  destructive: "bg-red-500 text-white hover:bg-red-600",
-  secondary: "bg-white/10 text-white hover:bg-white/20",
-  link: "text-sky-400 underline-offset-4 hover:underline",
+  default:
+    "bg-amber-600 text-white hover:bg-amber-500 shadow-md shadow-amber-900/30 active:scale-[0.97]",
+  ghost:
+    "hover:bg-stone-800/60 text-stone-300 hover:text-stone-50 active:scale-[0.97]",
+  outline:
+    "border border-stone-700 text-stone-300 hover:bg-stone-800/50 hover:text-stone-50 hover:border-stone-600 active:scale-[0.97]",
+  destructive:
+    "bg-rose-600 text-white hover:bg-rose-500 shadow-md shadow-rose-900/25 active:scale-[0.97]",
+  secondary:
+    "bg-stone-800/80 text-stone-200 hover:bg-stone-700/80 active:scale-[0.97]",
+  link:
+    "text-amber-500 underline-offset-4 hover:underline hover:text-amber-400",
   glass:
-    "bg-white/10 backdrop-blur-md border border-white/20 text-white hover:bg-white/20 shadow-lg",
+    "bg-white/8 backdrop-blur-xl border border-white/12 text-stone-100 hover:bg-white/14 hover:border-white/20 shadow-lg active:scale-[0.97]",
 };
 
 const sizeClasses = {
-  default: "h-10 px-4 py-2 text-sm",
-  sm: "h-8 px-3 text-xs",
-  lg: "h-12 px-6 text-base",
+  default: "h-10 px-5 py-2 text-sm",
+  sm: "h-8 px-3.5 text-xs",
+  lg: "h-12 px-7 text-base",
   icon: "h-10 w-10",
 };
 
@@ -30,7 +36,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={cn(
-          "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
+          "inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-950 disabled:pointer-events-none disabled:opacity-50 cursor-pointer",
           variantClasses[variant],
           sizeClasses[size],
           className
