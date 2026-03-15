@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef } from "react";
 import { Map as MapIcon, Layers } from "lucide-react";
 import { MapSearchBar } from "./map-search-bar";
 import { MapIconRail } from "./map-icon-rail";
@@ -19,12 +19,41 @@ export function MapComponent() {
   const [showPanel, setShowPanel] = useState(false);
   const [flyTo, setFlyTo] = useState<{ lat: number; lng: number; zoom: number } | null>(null);
   const [markerPos, setMarkerPos] = useState<{ lat: number; lng: number; name: string } | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const mapInstanceRef = useRef<any>(null);
 
   const handleLocationSelect = useCallback((loc: SelectedLocation) => {
     setSelectedLocation(loc);
     setShowPanel(true);
     setFlyTo({ lat: loc.lat, lng: loc.lng, zoom: 11 });
     setMarkerPos({ lat: loc.lat, lng: loc.lng, name: loc.name });
+  }, []);
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleMapReady = useCallback((map: any) => {
+    mapInstanceRef.current = map;
+  }, []);
+
+  const handleZoomIn = useCallback(() => {
+    mapInstanceRef.current?.zoomIn();
+  }, []);
+
+  const handleZoomOut = useCallback(() => {
+    mapInstanceRef.current?.zoomOut();
+  }, []);
+
+  const handleStreetView = useCallback(() => {
+    if (!mapInstanceRef.current) return;
+    // Both MapLibre and Leaflet expose getCenter() returning { lat, lng }
+    const center = mapInstanceRef.current.getCenter();
+    const lat = center.lat;
+    // MapLibre uses center.lng, Leaflet uses center.lng too
+    const lng = center.lng ?? center.lon;
+    window.open(
+      `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${lat},${lng}`,
+      "_blank",
+      "noopener,noreferrer"
+    );
   }, []);
 
   return (
@@ -35,12 +64,14 @@ export function MapComponent() {
           onLocationSelect={handleLocationSelect}
           flyTo={flyTo}
           markerPos={markerPos}
+          onMapReady={handleMapReady}
         />
       ) : (
         <LeafletCanvas
           onLocationSelect={handleLocationSelect}
           flyTo={flyTo}
           markerPos={markerPos}
+          onMapReady={handleMapReady}
         />
       )}
 
@@ -61,7 +92,12 @@ export function MapComponent() {
       />
 
       {/* Bottom-right map controls */}
-      <MapControls onLocate={handleLocationSelect} />
+      <MapControls
+        onLocate={handleLocationSelect}
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+        onStreetView={handleStreetView}
+      />
 
       {/* Bottom-left: Layers button */}
       <div className="fixed bottom-4 left-[72px] z-20 max-md:left-4">

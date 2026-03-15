@@ -12,6 +12,8 @@ export interface MapCanvasProps {
   onLocationSelect: (loc: SelectedLocation) => void;
   flyTo: { lat: number; lng: number; zoom: number } | null;
   markerPos: { lat: number; lng: number; name: string } | null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onMapReady?: (map: any) => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -55,7 +57,7 @@ function MapLoading({ label }: { label: string }) {
 // ---------------------------------------------------------------------------
 // MapLibre GL — MapTiler tiles, globe projection
 // ---------------------------------------------------------------------------
-export function MapLibreCanvas({ onLocationSelect, flyTo, markerPos }: MapCanvasProps) {
+export function MapLibreCanvas({ onLocationSelect, flyTo, markerPos, onMapReady }: MapCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
@@ -83,6 +85,7 @@ export function MapLibreCanvas({ onLocationSelect, flyTo, markerPos }: MapCanvas
           if (cancelled) return;
           map.setProjection({ type: "globe" });
           setLoaded(true);
+          onMapReady?.(map);
         });
         map.on("error", (e) => {
           console.error("MapLibre error:", e);

@@ -7,7 +7,7 @@ import type { MapCanvasProps } from "./map-canvas";
 // ---------------------------------------------------------------------------
 // Leaflet map — CARTO dark tiles, pure OSM, zero keys
 // ---------------------------------------------------------------------------
-export function LeafletCanvas({ onLocationSelect, flyTo, markerPos }: MapCanvasProps) {
+export function LeafletCanvas({ onLocationSelect, flyTo, markerPos, onMapReady }: MapCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const mapRef = useRef<any>(null);
@@ -46,6 +46,7 @@ export function LeafletCanvas({ onLocationSelect, flyTo, markerPos }: MapCanvasP
 
       mapRef.current = map;
       setLoaded(true);
+      onMapReady?.(map);
     })();
     return () => { cancelled = true; mapRef.current?.remove(); mapRef.current = null; };
     // eslint-disable-next-line react-hooks/exhaustive-deps

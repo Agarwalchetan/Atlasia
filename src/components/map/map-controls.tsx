@@ -7,9 +7,12 @@ import type { SelectedLocation } from "./map-types";
 
 interface MapControlsProps {
   onLocate?: (loc: SelectedLocation) => void;
+  onZoomIn?: () => void;
+  onZoomOut?: () => void;
+  onStreetView?: () => void;
 }
 
-export function MapControls({ onLocate }: MapControlsProps) {
+export function MapControls({ onLocate, onZoomIn, onZoomOut, onStreetView }: MapControlsProps) {
   const [isLocating, setIsLocating] = useState(false);
 
   const handleLocate = () => {
@@ -45,19 +48,19 @@ export function MapControls({ onLocate }: MapControlsProps) {
       {/* Divider */}
       <div className="w-6 h-px bg-stone-800/60 mx-auto" />
 
-      {/* Zoom controls — these are decorative since MapLibre/Leaflet have their own */}
-      <button className={btn} title="Zoom in">
+      {/* Zoom controls */}
+      <button onClick={onZoomIn} className={btn} title="Zoom in">
         <Plus size={16} />
       </button>
-      <button className={btn} title="Zoom out">
+      <button onClick={onZoomOut} className={btn} title="Zoom out">
         <Minus size={16} />
       </button>
 
       {/* Divider */}
       <div className="w-6 h-px bg-stone-800/60 mx-auto" />
 
-      {/* Street view toggle */}
-      <button className={btn} title="Street view">
+      {/* Street view — opens Google Street View at current map center */}
+      <button onClick={onStreetView} className={btn} title="Street view">
         <Eye size={16} />
       </button>
     </div>
