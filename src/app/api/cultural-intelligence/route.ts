@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { localizeObject } from "@/lib/lingo";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -13,15 +14,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Location is required" }, { status: 400 });
     }
 
-    const languageNames: Record<string, string> = {
-      en: "English", ja: "Japanese", zh: "Chinese", es: "Spanish", fr: "French",
-      de: "German", it: "Italian", pt: "Portuguese", ar: "Arabic", hi: "Hindi",
-      ko: "Korean", ru: "Russian", tr: "Turkish", th: "Thai", vi: "Vietnamese",
-    };
-
-    const targetLanguage = languageNames[language] || "English";
-
-    const prompt = `You are a cultural intelligence expert. Generate cultural etiquette and intelligence for "${location}" in ${targetLanguage}.
+    // Always generate in English, then localize via Lingo.dev
+    const prompt = `You are a cultural intelligence expert. Generate cultural etiquette and intelligence for "${location}" in English.
 
 Return a JSON object:
 {
@@ -51,6 +45,46 @@ Respond ONLY with the JSON object.`;
     } catch {
       const jsonMatch = content.match(/\{[\s\S]*\}/);
       intelligence = jsonMatch ? JSON.parse(jsonMatch[0]) : {};
+    }
+
+    // Use Lingo.dev to localize if target language is not English
+    if (language !== "en" && intelligence) {
+      try {
+        // Build a flat key-value object for all localizable strings
+        const payload: Record<string, string> = {
+          dresscode: intelligence.dresscode || "",
+          tipping: intelligence.tipping || "",
+        };
+
+        const arrayFields = [
+          "greetingCustoms",
+          "diningEtiquette",
+          "socialNorms",
+          "thingsToAvoid",
+          "religiousConsiderations",
+        ] as const;
+
+        arrayFields.forEach((field) => {
+          (intelligence[field] || []).forEach((item: string, i: number) => {
+            payload[`${field}_${i}`] = item;
+          });
+        });
+
+        const localized = await localizeObject(payload, language, "en");
+
+        intelligence.dresscode = localized.dresscode || intelligence.dresscode;
+        intelligence.tipping = localized.tipping || intelligence.tipping;
+
+        arrayFields.forEach((field) => {
+          if (Array.isArray(intelligence[field])) {
+            intelligence[field] = intelligence[field].map(
+              (_: string, i: number) => localized[`${field}_${i}`] || intelligence[field][i]
+            );
+          }
+        });
+      } catch (lingoErr) {
+        console.warn("Lingo.dev localization failed, serving English content:", lingoErr);
+      }
     }
 
     return NextResponse.json({ intelligence, location });

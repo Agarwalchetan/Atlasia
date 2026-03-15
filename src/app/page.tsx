@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
 import {
   Globe,
@@ -21,6 +22,38 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
+function useCountUp(target: number, duration = 1500, startOnView = true) {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+  const started = useRef(false);
+
+  useEffect(() => {
+    if (startOnView && !inView) return;
+    if (started.current) return;
+    started.current = true;
+
+    const steps = 40;
+    const stepDuration = duration / steps;
+    let current = 0;
+    const increment = target / steps;
+
+    const timer = setInterval(() => {
+      current += increment;
+      if (current >= target) {
+        setCount(target);
+        clearInterval(timer);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, stepDuration);
+
+    return () => clearInterval(timer);
+  }, [inView, target, duration, startOnView]);
+
+  return { count, ref };
+}
 
 const features = [
   {
@@ -68,11 +101,36 @@ const features = [
 ];
 
 const stats = [
-  { value: "195+", label: "Countries Covered", icon: Globe },
-  { value: "15+", label: "Languages Supported", icon: Languages },
-  { value: "AI", label: "Powered Guides", icon: Sparkles },
-  { value: "24/7", label: "Emergency Ready", icon: Shield },
+  { numericValue: 195, suffix: "+", label: "Countries Covered", icon: Globe },
+  { numericValue: 15, suffix: "+", label: "Languages Supported", icon: Languages },
+  { numericValue: null, suffix: "AI", label: "Powered Guides", icon: Sparkles },
+  { numericValue: null, suffix: "24/7", label: "Emergency Ready", icon: Shield },
 ];
+
+function AnimatedStat({
+  numericValue,
+  suffix,
+  label,
+  icon: Icon,
+}: {
+  numericValue: number | null;
+  suffix: string;
+  label: string;
+  icon: React.ElementType;
+}) {
+  const { count, ref } = useCountUp(numericValue ?? 0, 1200);
+  return (
+    <div ref={ref}>
+      <Card className="text-center p-6 hover:border-white/20 transition-colors group">
+        <Icon size={20} className="mx-auto mb-2 text-sky-400 group-hover:scale-110 transition-transform duration-300" />
+        <div className="text-3xl font-bold text-white mb-1">
+          {numericValue !== null ? `${count}${suffix}` : suffix}
+        </div>
+        <div className="text-sm text-white/50">{label}</div>
+      </Card>
+    </div>
+  );
+}
 
 const destinations = [
   { name: "Tokyo", country: "Japan", emoji: "🗼", lat: 35.6762, lng: 139.6503 },
@@ -116,6 +174,7 @@ export default function HomePage() {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8">
+        <div className="absolute inset-0 stars-bg pointer-events-none opacity-60" />
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -172,13 +231,9 @@ export default function HomePage() {
             animate="visible"
             className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-20"
           >
-            {stats.map(({ value, label, icon: Icon }) => (
-              <motion.div key={label} variants={itemVariants}>
-                <Card className="text-center p-6 hover:border-white/20 transition-colors">
-                  <Icon size={20} className="mx-auto mb-2 text-sky-400" />
-                  <div className="text-3xl font-bold text-white mb-1">{value}</div>
-                  <div className="text-sm text-white/50">{label}</div>
-                </Card>
+            {stats.map((stat) => (
+              <motion.div key={stat.label} variants={itemVariants}>
+                <AnimatedStat {...stat} />
               </motion.div>
             ))}
           </motion.div>
@@ -358,7 +413,7 @@ export default function HomePage() {
             <Card className="text-center py-16 px-8 relative overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-sky-500/10 via-indigo-500/5 to-violet-500/10" />
               <div className="relative">
-                <div className="text-5xl mb-4">🌍</div>
+                <div className="text-5xl mb-4 inline-block animate-float">🌍</div>
                 <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4">
                   Ready to explore the world?
                 </h2>
@@ -367,7 +422,7 @@ export default function HomePage() {
                 </p>
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                   <Link href="/map">
-                    <Button size="lg" className="gap-2 shadow-lg shadow-sky-500/25">
+                    <Button size="lg" className="gap-2 shadow-lg shadow-sky-500/25 animate-glow">
                       <Globe size={18} />
                       Open World Map
                       <ArrowRight size={16} />
