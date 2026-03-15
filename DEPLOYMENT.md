@@ -134,11 +134,14 @@ The `vercel.json` in this project sets custom `maxDuration` values for AI routes
 |---|---|---|
 | `/api/travel-guide` | 60s | Long-form destination guide generation |
 | `/api/itinerary` | 60s | Multi-day trip itinerary generation |
+| `/api/survival-card` | 60s | Survival card with emergency numbers, phrases, and local rules |
 | `/api/translate` | 30s | Translation with context |
 | `/api/translate-ui` | 30s | UI string localization |
 | `/api/phrases` | 30s | Travel phrase generation |
 | `/api/cultural-intelligence` | 30s | Cultural tips generation |
 | `/api/nearby-places` | 30s | Overpass API with 20s internal timeout |
+| `/api/chat` | 30s | AI travel assistant chat |
+| `/api/food-explorer` | 30s | Local dish generation |
 | `/api/speech/transcribe` | 30s | Audio upload + Whisper transcription |
 | `/api/speech/tts` | 30s | Text-to-speech audio synthesis |
 
@@ -190,7 +193,11 @@ After your first deploy, verify each feature:
 - [ ] **Phrases** — generate travel phrases with audio playback (requires `OPENAI_API_KEY` for TTS)
 - [ ] **Conversation** — test text translation; test microphone input if on HTTPS
 - [ ] **Emergency** — verify emergency numbers display for a country
+- [ ] **Survival Card** — generate a survival card for a destination
+- [ ] **Food Explorer** — generate local dishes for a destination
+- [ ] **Ask Atlasia** — send a chat message and verify a response
 - [ ] **Language switcher** in the navbar works (requires `LINGO_DEV_API_KEY` for full localization)
+- [ ] **Auto-detect banner** appears on first visit if browser language differs from English
 
 > **Note:** Microphone access (`/conversation` page) requires **HTTPS**. Vercel deployments are HTTPS by default, but `localhost` is also allowed by browsers.
 

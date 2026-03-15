@@ -33,12 +33,15 @@ Atlasia gives travelers real-time AI translations, phrase generation with pronun
 | **Phrases** | `/phrases` | AI phrase generator with phonetic pronunciation and text-to-speech audio |
 | **Conversation** | `/conversation` | Live bilingual translator with microphone input and TTS playback |
 | **Emergency** | `/emergency` | Emergency phrase translator, country-specific emergency numbers, medical alert card |
+| **Survival Card** | `/survival-card` | Per-country card: tap-to-call emergency numbers, 6 survival phrases with TTS, local rules, payment info, safety tips |
+| **Food Explorer** | `/food-explorer` | 6–8 iconic dishes per destination with flavour profiles, dietary tags, price range, and ordering phrases with TTS |
+| **Ask Atlasia** | `/chat` | Multi-turn AI travel chat with destination context, markdown rendering, and 8 suggested questions |
 
 ### Highlights
 
 - **Zero-config map** — works out of the box with Leaflet + OpenStreetMap. Add a free MapTiler key to unlock 3D globe projection.
 - **Multi-provider AI** — switch between OpenAI, Google Gemini, and Groq with a single environment variable. No code changes.
-- **15 languages** — translation, phrase generation, and UI localization across 15 languages.
+- **15 languages** — translation, phrase generation, and UI localization across 15 languages. Browser language auto-detected on first visit.
 - **No paid map APIs required** — geocoding via Nominatim, nearby places via OpenStreetMap Overpass API.
 - **Privacy-first** — no analytics, no tracking. All API keys are server-side only.
 
@@ -52,7 +55,7 @@ Atlasia gives travelers real-time AI translations, phrase generation with pronun
 | Runtime | [React 19](https://react.dev) |
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) |
 | Animations | [Framer Motion v12](https://www.framer.com/motion) |
-| Icons | [Lucide React](https://lucide.dev) |
+| Icons | [Lucide React](https://lucide.dev) + [@iconify/react](https://iconify.design) (flag icons) |
 | UI Primitives | [Radix UI](https://www.radix-ui.com) |
 | Fonts | Sora (headings) · Inter (body) · DM Mono (pronunciation) |
 | AI — Text | OpenAI / Google Gemini / Groq (switchable) |
@@ -80,6 +83,9 @@ atlasia/
 │   │   │   ├── itinerary/              # Day-by-day trip itinerary
 │   │   │   ├── cultural-intelligence/  # Cultural tips and etiquette
 │   │   │   ├── nearby-places/          # OSM Overpass nearby POI lookup
+│   │   │   ├── chat/                   # Ask Atlasia AI chat
+│   │   │   ├── food-explorer/          # Food Explorer dish generation
+│   │   │   ├── survival-card/          # Travel Survival Card generation
 │   │   │   └── speech/
 │   │   │       ├── transcribe/         # Speech-to-text (STT)
 │   │   │       └── tts/                # Text-to-speech (TTS)
@@ -88,6 +94,9 @@ atlasia/
 │   │   ├── phrases/                    # /phrases page
 │   │   ├── conversation/               # /conversation page
 │   │   ├── emergency/                  # /emergency page
+│   │   ├── chat/                       # /chat page — Ask Atlasia AI chat
+│   │   ├── food-explorer/              # /food-explorer page
+│   │   ├── survival-card/              # /survival-card page
 │   │   ├── globals.css                 # Tailwind v4 theme, custom animations
 │   │   ├── layout.tsx                  # Root layout — fonts, metadata, ClientLayout
 │   │   └── page.tsx                    # Home page
@@ -282,6 +291,9 @@ All routes are Next.js App Router Route Handlers.
 | `/api/itinerary` | POST | AI provider vars, `LINGO_DEV_API_KEY` | Generates a day-by-day trip itinerary |
 | `/api/cultural-intelligence` | POST | AI provider vars, `LINGO_DEV_API_KEY` | Returns cultural tips and etiquette |
 | `/api/nearby-places` | GET | None | Fetches nearby POIs from OpenStreetMap Overpass API |
+| `/api/chat` | POST | AI provider vars | Multi-turn AI travel assistant chat |
+| `/api/food-explorer` | POST | AI provider vars | Generates iconic local dishes with ordering phrases |
+| `/api/survival-card` | POST | AI provider vars | Generates a per-country survival card with emergency info |
 | `/api/speech/transcribe` | POST | `OPENAI_API_KEY` or `GROQ_API_KEY` | Transcribes audio to text (STT) |
 | `/api/speech/tts` | POST | `OPENAI_API_KEY` | Converts text to MP3 audio (TTS) |
 

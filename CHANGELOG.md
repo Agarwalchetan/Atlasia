@@ -10,6 +10,23 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Ver
 
 ---
 
+## [0.5.0] — 2026-03-16
+
+### Added
+- **Travel Survival Card** (`/survival-card`) — AI-generated per-country card with real tap-to-call emergency numbers, 6 survival phrases with TTS + copy, local rules with category badges, payment info, safety tips, and a quick-info strip (timezone, voltage, visa, water). 14 popular destination quick-picks.
+- **Food Explorer** (`/food-explorer`) — 6–8 iconic local dishes per destination with description, flavour profile, where to try, dietary tags, and price range. Expandable cards reveal ordering phrases in the local language with TTS + copy. 10 popular destination quick-picks.
+- **Ask Atlasia AI Chat** (`/chat`) — multi-turn AI travel assistant with optional destination context, 8 suggested questions, full markdown rendering (bold, code, bullets, headings), Shift+Enter for newline, auto-scroll, and clear button.
+- **Browser language auto-detection** — `src/lib/language-context.tsx` now detects the user's browser language via `navigator.languages` on first mount. Shows a dismissable teal banner: *"Interface language set to [Language] based on your browser"*. Manual language changes are saved to `sessionStorage` and skip future detection.
+
+### Changed
+- **Navbar** (`src/components/layout/navbar.tsx`) — all 8 routes flat on desktop with short labels (`Map | Guide | Phrases | Conversation | Emergency | Survival | Food | Ask Atlasia`). **Ask Atlasia** styled as a glowing teal CTA (`bg-gradient-to-br from-teal-500 to-teal-600`, `shadow-[0_0_12px_rgba(20,184,166,0.35)]`). Removed the "More" dropdown. Mobile menu retains full labels with the same gradient CTA at the bottom.
+- **Home page** (`src/app/page.tsx`) — added feature cards for Survival Card, Food Explorer, and Ask Atlasia. Fixed `key={i}` on features map to prevent stale-key collisions during translation.
+
+### Fixed
+- **Conversation page** (`src/app/conversation/page.tsx`) — flag icon IDs (Iconify strings like `circle-flags:gb`) were rendering as raw text in three places: the language selector labels, the `RecorderPanel` avatar, and the conversation history bubbles. Replaced with `<Icon>` from `@iconify/react` throughout. Added a custom `LangSelect` component that renders flag icons natively inside a `<select>` wrapper. Removed unused `Button` import that was triggering a Turbopack dev-server parse error.
+
+---
+
 ## [0.4.0] — 2026-03-16
 
 ### Added
@@ -79,7 +96,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/). Ver
 - Emergency contacts, phrase translator, and medical alert card
 - Animated home page with stats counter, feature showcase, and CTA
 
-[Unreleased]: https://github.com/AgarwalChetan/Atlasia/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/AgarwalChetan/Atlasia/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/AgarwalChetan/Atlasia/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/AgarwalChetan/Atlasia/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/AgarwalChetan/Atlasia/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/AgarwalChetan/Atlasia/compare/v0.1.0...v0.2.0

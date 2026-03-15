@@ -56,7 +56,8 @@ Open [http://localhost:3000](http://localhost:3000).
 - **`"use client"` directive** on every component that uses React hooks or browser APIs
 - **Tailwind CSS v4** — no `tailwind.config.ts`. All customizations go in `globals.css` inside the `@theme inline` block.
 - **`bun`** as the package manager — do not commit `package-lock.json` or `yarn.lock`
-- **Lucide React** for all icons — no other icon libraries
+- **Lucide React** for all UI icons — no emoji characters as UI icons
+- **`@iconify/react`** for flag icons only — use `circle-flags:<country-code>` IDs; always render via `<IconifyIcon icon={flag} />`, never as raw text
 - **`src/components/ui/`** primitives for all UI elements — no raw HTML `<button>`, `<input>`, etc. outside of the UI component definitions themselves
 
 ### Design system
@@ -173,7 +174,8 @@ These rules must be followed in all UI code:
 
 ### Icons
 
-- **Lucide React only** — no emoji characters as UI icons (emoji in AI-returned content is OK to display)
+- **Lucide React** for all UI icons — no emoji characters as UI icons (emoji in AI-returned content is OK to display)
+- **`@iconify/react`** (`Icon` imported as `IconifyIcon`) for flag icons only — use `circle-flags:<country-code>` IDs sourced from `SUPPORTED_LANGUAGES[].flag` in `src/lib/utils.ts`. The `flag` field is an Iconify ID string, not an emoji. Always render it with `<IconifyIcon icon={flag} width={N} />`, never as raw text content.
 
 ### Animations
 
